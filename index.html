@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KryptoPay — Seoul Exchange & Crypto Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:       #050d1a;
+  --bg2:      #091221;
+  --panel:    #0d1e35;
+  --panel2:   #122540;
+  --border:   rgba(6,182,212,0.15);
+  --teal:     #06b6d4;
+  --teal2:    #22d3ee;
+  --gold:     #f59e0b;
+  --green:    #10b981;
+  --red:      #ef4444;
+  --white:    #f0f9ff;
+  --muted:    #64748b;
+  --text:     #cbd5e1;
+  --radius:   14px;
+  --glow:     0 0 30px rgba(6,182,212,0.2);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Space Grotesk',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before{
+content:’’;
+position:fixed;inset:0;
+background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.03’/%3E%3C/svg%3E”);
+pointer-events:none;z-index:0;opacity:0.4;
+}
+
+/* ── HEADER ── */
+header{
+position:sticky;top:0;z-index:100;
+background:rgba(5,13,26,0.85);
+backdrop-filter:blur(20px);
+border-bottom:1px solid var(–border);
+padding:0 24px;
+height:64px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+font-family:‘Syne’,sans-serif;
+font-size:22px;font-weight:800;
+color:var(–white);
+letter-spacing:-0.5px;
+display:flex;align-items:center;gap:8px;
+}
+.logo span{color:var(–teal);}
+.logo-dot{
+width:8px;height:8px;
+background:var(–teal);
+border-radius:50%;
+animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(0.8);}}
+
+.lang-switcher{
+display:flex;gap:4px;
+}
+.lang-btn{
+padding:6px 12px;
+border:1px solid var(–border);
+background:transparent;
+color:var(–muted);
+border-radius:8px;
+cursor:pointer;font-size:12px;
+font-family:‘Space Grotesk’,sans-serif;
+transition:all .2s;
+}
+.lang-btn.active,.lang-btn:hover{
+background:var(–teal);color:#000;border-color:var(–teal);font-weight:600;
+}
+
+/* ── HERO ── */
+.hero{
+position:relative;
+padding:72px 24px 48px;
+text-align:center;
+overflow:hidden;
+}
+.hero-glow{
+position:absolute;
+top:-100px;left:50%;transform:translateX(-50%);
+width:600px;height:400px;
+background:radial-gradient(ellipse at center, rgba(6,182,212,0.12) 0%, transparent 70%);
+pointer-events:none;
+}
+.hero h1{
+font-family:‘Syne’,sans-serif;
+font-size:clamp(32px,6vw,64px);
+font-weight:800;
+color:var(–white);
+line-height:1.1;
+margin-bottom:16px;
+}
+.hero h1 em{
+font-style:normal;
+color:var(–teal);
+}
+.hero p{
+font-size:clamp(14px,2vw,18px);
+color:var(–text);
+max-width:540px;
+margin:0 auto 32px;
+line-height:1.6;
+}
+.hero-stats{
+display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;
+}
+.stat-badge{
+padding:8px 16px;
+background:var(–panel);
+border:1px solid var(–border);
+border-radius:100px;
+font-size:13px;
+color:var(–teal2);
+display:flex;align-items:center;gap:6px;
+}
+.stat-badge .dot{
+width:6px;height:6px;border-radius:50%;background:var(–green);
+animation:pulse 1.5s infinite;
+}
+
+/* ── RATE TICKER ── */
+.rate-ticker{
+background:var(–panel);
+border:1px solid var(–border);
+border-radius:var(–radius);
+padding:16px 20px;
+max-width:900px;
+margin:0 auto 48px;
+display:flex;
+align-items:center;
+gap:8px;
+overflow:hidden;
+}
+.ticker-label{
+font-size:11px;font-weight:600;
+color:var(–teal);
+text-transform:uppercase;
+letter-spacing:1px;
+white-space:nowrap;
+margin-right:8px;
+}
+.ticker-track{
+display:flex;gap:24px;
+overflow:hidden;
+flex:1;
+}
+.ticker-item{
+display:flex;align-items:center;gap:8px;
+white-space:nowrap;font-size:13px;
+}
+.ticker-coin{font-weight:600;color:var(–white);}
+.ticker-rate{color:var(–text);}
+.ticker-change{font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px;}
+.ticker-change.up{background:rgba(16,185,129,0.15);color:var(–green);}
+.ticker-change.dn{background:rgba(239,68,68,0.15);color:var(–red);}
+
+/* ── FILTERS ── */
+.filters{
+max-width:900px;margin:0 auto 28px;
+padding:0 24px;
+display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+}
+.filter-label{
+font-size:12px;color:var(–muted);font-weight:500;
+margin-right:4px;
+}
+.filter-chip{
+padding:7px 14px;
+border:1px solid var(–border);
+background:transparent;
+color:var(–text);
+border-radius:100px;
+cursor:pointer;font-size:12px;
+font-family:‘Space Grotesk’,sans-serif;
+transition:all .2s;
+}
+.filter-chip.active{
+background:var(–teal);color:#000;border-color:var(–teal);font-weight:600;
+}
+.filter-chip:hover:not(.active){border-color:var(–teal);color:var(–teal);}
+
+/* ── SEARCH ── */
+.search-wrap{
+max-width:900px;margin:0 auto 32px;
+padding:0 24px;
+}
+.search-input{
+width:100%;
+padding:14px 20px;
+background:var(–panel);
+border:1px solid var(–border);
+border-radius:var(–radius);
+color:var(–white);
+font-family:‘Space Grotesk’,sans-serif;
+font-size:15px;
+outline:none;
+transition:border-color .2s,box-shadow .2s;
+}
+.search-input::placeholder{color:var(–muted);}
+.search-input:focus{
+border-color:var(–teal);
+box-shadow:var(–glow);
+}
+
+/* ── MAIN GRID ── */
+.main-grid{
+max-width:900px;margin:0 auto;
+padding:0 24px 80px;
+display:grid;
+grid-template-columns:1fr;
+gap:12px;
+}
+
+/* ── EXCHANGE CARD ── */
+.excard{
+background:var(–panel);
+border:1px solid var(–border);
+border-radius:var(–radius);
+padding:20px 24px;
+display:grid;
+grid-template-columns:1fr auto;
+gap:16px;
+align-items:start;
+transition:border-color .25s, transform .2s, box-shadow .25s;
+cursor:pointer;
+animation:fadeUp .4s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.excard:hover{
+border-color:rgba(6,182,212,0.4);
+transform:translateY(-2px);
+box-shadow:var(–glow);
+}
+.excard.featured{
+border-color:rgba(245,158,11,0.3);
+background:linear-gradient(135deg, var(–panel) 0%, rgba(245,158,11,0.05) 100%);
+}
+.excard.crypto-friendly{
+border-color:rgba(6,182,212,0.3);
+background:linear-gradient(135deg, var(–panel) 0%, rgba(6,182,212,0.05) 100%);
+}
+
+.card-left{}
+.card-name{
+font-size:17px;font-weight:600;
+color:var(–white);margin-bottom:4px;
+display:flex;align-items:center;gap:8px;
+}
+.card-area{
+font-size:12px;color:var(–muted);margin-bottom:12px;
+display:flex;align-items:center;gap:4px;
+}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.tag{
+padding:3px 9px;border-radius:6px;font-size:11px;font-weight:500;
+}
+.tag-crypto{background:rgba(6,182,212,0.12);color:var(–teal);border:1px solid rgba(6,182,212,0.2);}
+.tag-open{background:rgba(16,185,129,0.12);color:var(–green);border:1px solid rgba(16,185,129,0.2);}
+.tag-closed{background:rgba(100,116,139,0.12);color:var(–muted);border:1px solid rgba(100,116,139,0.2);}
+.tag-featured{background:rgba(245,158,11,0.12);color:var(–gold);border:1px solid rgba(245,158,11,0.2);}
+.tag-bank{background:rgba(139,92,246,0.12);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);}
+
+.card-info{font-size:13px;color:var(–text);line-height:1.6;}
+.card-info strong{color:var(–white);font-weight:500;}
+
+.card-right{
+display:flex;flex-direction:column;
+align-items:flex-end;gap:8px;
+}
+.card-rate{
+text-align:right;
+}
+.rate-label{font-size:10px;color:var(–muted);text-transform:uppercase;letter-spacing:.5px;}
+.rate-value{
+font-family:‘Syne’,sans-serif;
+font-size:22px;font-weight:700;
+color:var(–white);
+}
+.rate-sub{font-size:11px;color:var(–green);}
+
+.btn-nav{
+padding:8px 16px;
+background:var(–teal);
+color:#000;font-weight:600;
+border:none;border-radius:8px;
+cursor:pointer;font-size:12px;
+font-family:‘Space Grotesk’,sans-serif;
+text-decoration:none;
+transition:opacity .2s;
+white-space:nowrap;
+}
+.btn-nav:hover{opacity:.85;}
+.btn-nav.secondary{
+background:transparent;
+border:1px solid var(–border);
+color:var(–teal);
+}
+
+/* ── BADGE 아이콘 ── */
+.badge-icon{
+font-size:11px;
+padding:2px 7px;
+border-radius:4px;
+font-weight:600;
+}
+.bi-krypto{background:rgba(6,182,212,0.2);color:var(–teal);}
+
+/* ── SECTION HEADER ── */
+.section-hdr{
+max-width:900px;margin:0 auto 16px;
+padding:0 24px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.section-title{
+font-family:‘Syne’,sans-serif;
+font-size:18px;font-weight:700;color:var(–white);
+}
+.section-count{font-size:13px;color:var(–muted);}
+
+/* ── KRYPTOPAY PROMO BANNER ── */
+.promo-banner{
+max-width:900px;margin:0 auto 32px;
+padding:0 24px;
+}
+.promo-inner{
+background:linear-gradient(135deg, rgba(6,182,212,0.1) 0%, rgba(6,182,212,0.03) 100%);
+border:1px solid rgba(6,182,212,0.25);
+border-radius:var(–radius);
+padding:24px 28px;
+display:flex;align-items:center;justify-content:space-between;gap:20px;
+flex-wrap:wrap;
+}
+.promo-text h3{
+font-family:‘Syne’,sans-serif;
+font-size:20px;font-weight:800;
+color:var(–white);margin-bottom:6px;
+}
+.promo-text p{font-size:13px;color:var(–text);line-height:1.5;}
+.promo-text p strong{color:var(–teal);}
+.btn-primary{
+padding:12px 24px;
+background:var(–teal);
+color:#000;font-weight:700;
+border:none;border-radius:10px;
+cursor:pointer;font-size:14px;
+font-family:‘Space Grotesk’,sans-serif;
+white-space:nowrap;
+transition:transform .15s, box-shadow .2s;
+text-decoration:none;
+}
+.btn-primary:hover{
+transform:translateY(-1px);
+box-shadow:0 8px 24px rgba(6,182,212,0.3);
+}
+
+/* ── MAP CTA ── */
+.map-cta{
+max-width:900px;margin:0 auto 28px;
+padding:0 24px;
+}
+.map-cta-inner{
+background:var(–panel2);
+border:1px solid var(–border);
+border-radius:var(–radius);
+padding:18px 24px;
+display:flex;align-items:center;gap:16px;
+flex-wrap:wrap;
+}
+.map-icon{font-size:28px;}
+.map-text{flex:1;}
+.map-text p{font-size:13px;color:var(–text);}
+.map-text strong{color:var(–white);}
+
+/* ── EMPTY STATE ── */
+.empty-state{
+text-align:center;padding:60px 20px;
+display:none;
+}
+.empty-state.show{display:block;}
+.empty-state p{color:var(–muted);font-size:15px;}
+
+/* ── FOOTER ── */
+footer{
+border-top:1px solid var(–border);
+padding:32px 24px;
+text-align:center;
+color:var(–muted);font-size:12px;
+line-height:1.8;
+}
+footer a{color:var(–teal);text-decoration:none;}
+footer strong{color:var(–white);}
+
+/* ── MODAL ── */
+.modal-overlay{
+display:none;
+position:fixed;inset:0;z-index:200;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(8px);
+align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+background:var(–panel2);
+border:1px solid var(–border);
+border-radius:18px;
+padding:32px;
+max-width:480px;width:90%;
+position:relative;
+animation:fadeUp .3s ease;
+}
+.modal-close{
+position:absolute;top:16px;right:16px;
+background:transparent;border:none;
+color:var(–muted);font-size:22px;cursor:pointer;
+}
+.modal-close:hover{color:var(–white);}
+.modal-title{
+font-family:‘Syne’,sans-serif;
+font-size:22px;font-weight:800;
+color:var(–white);margin-bottom:8px;
+}
+.modal-addr{font-size:13px;color:var(–teal);margin-bottom:20px;}
+.modal-grid{
+display:grid;grid-template-columns:1fr 1fr;
+gap:12px;margin-bottom:20px;
+}
+.modal-item{
+background:var(–panel);
+border:1px solid var(–border);
+border-radius:10px;
+padding:14px;
+}
+.modal-item-label{font-size:11px;color:var(–muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.modal-item-val{font-size:15px;font-weight:600;color:var(–white);}
+.modal-btns{display:flex;gap:10px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+.excard{grid-template-columns:1fr;}
+.card-right{flex-direction:row;align-items:center;}
+.hero h1{font-size:32px;}
+.promo-inner{flex-direction:column;}
+}
+
+/* ── LANG HIDE ── */
+[data-lang]{display:none;}
+.lang-en [data-lang=“en”]{display:block;}
+.lang-en [data-lang=“en”].inline-block{display:inline-block;}
+.lang-zh [data-lang=“zh”]{display:block;}
+.lang-ja [data-lang=“ja”]{display:block;}
+.lang-ko [data-lang=“ko”]{display:block;}
+</style>
+
+</head>
+<body class="lang-en">
+
+<!-- HEADER -->
+
+<header>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    Krypto<span>Pay</span>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('ja')">日本語</button>
+    <button class="lang-btn" onclick="setLang('ko')">한국어</button>
+  </div>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <h1 data-lang="en">Find Currency Exchange<br/>in <em>Seoul</em></h1>
+  <h1 data-lang="zh">在<em>首尔</em>找换汇点</h1>
+  <h1 data-lang="ja"><em>ソウル</em>で両替所を探す</h1>
+  <h1 data-lang="ko"><em>서울</em> 환전소 찾기</h1>
+
+  <p data-lang="en">Best rates. Crypto-friendly spots. Real-time info for visitors in Seoul.</p>
+  <p data-lang="zh">最优汇率。支持加密货币。首尔访客实时信息。</p>
+  <p data-lang="ja">最良レート。暗号通貨対応。ソウル訪問者向けリアルタイム情報。</p>
+  <p data-lang="ko">최적 환율. 크립토 환전 가능 장소. 서울 방문자를 위한 실시간 정보.</p>
+
+  <div class="hero-stats">
+    <div class="stat-badge"><span class="dot"></span>18.93M visitors to Korea in 2025</div>
+    <div class="stat-badge"><span class="dot"></span>Live exchange rates</div>
+    <div class="stat-badge"><span class="dot"></span>Crypto-friendly spots</div>
+  </div>
+</section>
+
+<!-- RATE TICKER -->
+
+<div style="max-width:900px;margin:0 auto;padding:0 24px 24px;">
+  <div class="rate-ticker">
+    <div class="ticker-label">Live Rates</div>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<!-- KRYPTOPAY PROMO BANNER -->
+
+<div class="promo-banner">
+  <div class="promo-inner">
+    <div class="promo-text">
+      <h3 data-lang="en">🪙 Pay with Crypto — Skip the Exchange Line</h3>
+      <h3 data-lang="zh">🪙 用加密货币支付 — 无需排队换汇</h3>
+      <h3 data-lang="ja">🪙 暗号通貨で支払い — 両替待ち不要</h3>
+      <h3 data-lang="ko">🪙 크립토로 바로 결제 — 환전 줄 없이</h3>
+      <p data-lang="en">KryptoPay lets you pay with <strong>USDT, USDC, BTC or ETH</strong> at 500+ Seoul merchants. Instant KRW conversion. No hidden fees.</p>
+      <p data-lang="zh">KryptoPay让您在首尔500+商家使用<strong>USDT、USDC、BTC或ETH</strong>支付。即时韩元换算，无隐藏费用。</p>
+      <p data-lang="ja">KryptoPay はソウル500以上の店舗で<strong>USDT、USDC、BTC、ETH</strong>で支払えます。即時KRW換算。手数料なし。</p>
+      <p data-lang="ko">KryptoPay로 서울 500개+ 가맹점에서 <strong>USDT, USDC, BTC, ETH</strong>로 즉시 결제하세요. 실시간 원화 환산.</p>
+    </div>
+    <a href="#" class="btn-primary" data-lang="en">Try KryptoPay →</a>
+    <a href="#" class="btn-primary" data-lang="zh">立即体验 →</a>
+    <a href="#" class="btn-primary" data-lang="ja">今すぐ試す →</a>
+    <a href="#" class="btn-primary" data-lang="ko">지금 시작하기 →</a>
+  </div>
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-wrap">
+  <input class="search-input" id="searchInput" placeholder="🔍  Search by name or area (Myeongdong, Hongdae, Gangnam...)" oninput="filterCards()"/>
+</div>
+
+<!-- FILTERS -->
+
+<div class="filters">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-chip active" data-filter="all" onclick="setFilter('all',this)">All</button>
+  <button class="filter-chip" data-filter="crypto" onclick="setFilter('crypto',this)">🪙 Crypto-Friendly</button>
+  <button class="filter-chip" data-filter="open" onclick="setFilter('open',this)">🟢 Open Now</button>
+  <button class="filter-chip" data-filter="bank" onclick="setFilter('bank',this)">🏦 Bank</button>
+  <button class="filter-chip" data-filter="myeongdong" onclick="setFilter('myeongdong',this)">Myeongdong</button>
+  <button class="filter-chip" data-filter="hongdae" onclick="setFilter('hongdae',this)">Hongdae</button>
+  <button class="filter-chip" data-filter="gangnam" onclick="setFilter('gangnam',this)">Gangnam</button>
+</div>
+
+<!-- SECTION HEADER -->
+
+<div class="section-hdr">
+  <div class="section-title">Exchange Locations</div>
+  <div class="section-count" id="resultCount">Showing all locations</div>
+</div>
+
+<!-- CARDS -->
+
+<div class="main-grid" id="cardGrid"></div>
+<div class="empty-state" id="emptyState">
+  <p>No results found. Try a different search or filter.</p>
+</div>
+
+<!-- MODAL -->
+
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <strong>KryptoPay</strong> — Seoul's Crypto Payment Platform<br/>
+  Data updated daily · Exchange rates are indicative · Always verify at the counter<br/>
+  <a href="#">About KryptoPay</a> · <a href="#">For Merchants</a> · <a href="#">Contact</a><br/><br/>
+  <span style="font-size:11px;color:#334155;">
+    Powered by KryptoPay · Partnered with Seoul Financial Data Initiative<br/>
+    © 2026 KryptoPay Inc. All rights reserved.
+  </span>
+</footer>
+
+<script>
+// ── DATA ──
+const EXCHANGES = [
+  {
+    id:1, name:"Myeongdong Jeil Exchange", nameKo:"명동 제일환전",
+    area:"Myeongdong", filter:["myeongdong","open"],
+    address:"68-1 Namdaemunno, Jung-gu, Seoul",
+    addressKo:"서울 중구 남대문로 68-1",
+    phone:"02-773-0000",
+    hours:"09:00 – 22:00 (Open Daily)",
+    rate:{usd:1358, eur:1485, jpy:940, cny:188},
+    crypto:false, featured:true,
+    note:"Best USD/EUR rates in Myeongdong. No commission. Bring crisp 100-USD bills for best rates.",
+    tags:["open","featured"]
+  },
+  {
+    id:2, name:"Money Box Myeongdong Main", nameKo:"머니박스 명동본점",
+    area:"Myeongdong", filter:["myeongdong","open"],
+    address:"108-1 Myeongdong 2-ga, Jung-gu, Seoul",
+    addressKo:"서울 중구 명동2가 108-1",
+    phone:"02-3789-0888",
+    hours:"09:00 – 21:00 (Mon–Sat)",
+    rate:{usd:1356, eur:1482, jpy:937, cny:187},
+    crypto:false, featured:false,
+    note:"Large volume exchanger. Multiple currency support including AUD, CAD, SGD.",
+    tags:["open"]
+  },
+  {
+    id:3, name:"KryptoPay Exchange Partner", nameKo:"KryptoPay 환전 파트너",
+    area:"Myeongdong", filter:["myeongdong","crypto","open"],
+    address:"Myeongdong Station Exit 6 area, Jung-gu",
+    addressKo:"서울 중구 명동역 6번 출구 인근",
+    phone:"Coming Soon",
+    hours:"10:00 – 21:00",
+    rate:{usd:1361, eur:1488, jpy:943, cny:189},
+    crypto:true, featured:false,
+    note:"✨ KryptoPay partner. Pay with USDT, USDC, BTC, ETH. Instant KRW payout.",
+    tags:["open","crypto"]
+  },
+  {
+    id:4, name:"Shinhan Bank Myeongdong Branch", nameKo:"신한은행 명동지점",
+    area:"Myeongdong", filter:["myeongdong","bank","open"],
+    address:"15 Myeongdong-gil 9, Jung-gu, Seoul",
+    addressKo:"서울 중구 명동9길 15, 1층",
+    phone:"1599-8000",
+    hours:"09:00 – 16:00 (Weekdays only)",
+    rate:{usd:1352, eur:1479, jpy:932, cny:185},
+    crypto:false, featured:false,
+    note:"Official bank rate. Up to 90% fee discount with app reservation. ID required.",
+    tags:["open","bank"]
+  },
+  {
+    id:5, name:"Money Box Mapo Branch", nameKo:"머니박스 마포점",
+    area:"Hongdae", filter:["hongdae","open"],
+    address:"68 Mapo-daero, Mapo-gu, Seoul",
+    addressKo:"서울 마포구 마포대로 68, 1층 125호",
+    phone:"02-711-1888",
+    hours:"09:30 – 20:30 (Mon–Sat)",
+    rate:{usd:1357, eur:1483, jpy:939, cny:188},
+    crypto:false, featured:false,
+    note:"Best option near Hongdae/Sinchon area. Good JPY rates.",
+    tags:["open"]
+  },
+  {
+    id:6, name:"Money Box Worldcup Park", nameKo:"머니박스 월드컵점",
+    area:"Hongdae", filter:["hongdae","open"],
+    address:"93 Worldcupbukno 2-gil, Mapo-gu",
+    addressKo:"서울 마포구 월드컵북로 2길 93",
+    phone:"02-3144-1288",
+    hours:"10:00 – 20:00",
+    rate:{usd:1355, eur:1481, jpy:936, cny:187},
+    crypto:false, featured:false,
+    note:"Near Hongdae park area. Convenient for weekend visitors.",
+    tags:["open"]
+  },
+  {
+    id:7, name:"KryptoPay Hongdae Partner", nameKo:"KryptoPay 홍대 파트너",
+    area:"Hongdae", filter:["hongdae","crypto","open"],
+    address:"Near Hongik University Station Exit 9",
+    addressKo:"홍익대학교역 9번 출구 인근",
+    phone:"Coming Soon",
+    hours:"11:00 – 23:00",
+    rate:{usd:1360, eur:1487, jpy:942, cny:189},
+    crypto:true, featured:false,
+    note:"✨ KryptoPay partner. Crypto payment & exchange. Open late for nightlife area.",
+    tags:["open","crypto"]
+  },
+  {
+    id:8, name:"Money Box Gangnam", nameKo:"머니박스 강남점",
+    area:"Gangnam", filter:["gangnam","open"],
+    address:"127 Dosan-daero, Gangnam-gu, Seoul (Sinsa-dong)",
+    addressKo:"서울 강남구 도산대로 127, 1층 (신사동)",
+    phone:"02-518-8883",
+    hours:"10:00 – 19:00 (Mon–Sat)",
+    rate:{usd:1356, eur:1482, jpy:938, cny:187},
+    crypto:false, featured:false,
+    note:"Convenient for Gangnam/COEX area visitors. Garosu-gil nearby.",
+    tags:["open"]
+  },
+  {
+    id:9, name:"KEB Hana Bank Gangnam", nameKo:"하나은행 강남점",
+    area:"Gangnam", filter:["gangnam","bank","open"],
+    address:"Teheranno, Gangnam-gu, Seoul",
+    addressKo:"서울 강남구 테헤란로",
+    phone:"1599-1111",
+    hours:"09:00 – 16:00 (Weekdays only)",
+    rate:{usd:1351, eur:1478, jpy:931, cny:185},
+    crypto:false, featured:false,
+    note:"Bank-guaranteed rates. International remittance available.",
+    tags:["open","bank"]
+  },
+  {
+    id:10, name:"KryptoPay Gangnam Hub", nameKo:"KryptoPay 강남 허브",
+    area:"Gangnam", filter:["gangnam","crypto","open"],
+    address:"Near COEX Mall, Samseong-dong, Gangnam-gu",
+    addressKo:"서울 강남구 삼성동 코엑스몰 인근",
+    phone:"Coming Soon",
+    hours:"10:00 – 21:00",
+    rate:{usd:1362, eur:1489, jpy:944, cny:190},
+    crypto:true, featured:false,
+    note:"✨ KryptoPay flagship partner. Full BTC/ETH/USDT/USDC support. Business visitors welcome.",
+    tags:["open","crypto"]
+  },
+  {
+    id:11, name:"Incheon Airport T1 Exchange", nameKo:"인천공항 1터미널 환전",
+    area:"Incheon Airport", filter:["open"],
+    address:"Terminal 1, Incheon International Airport",
+    addressKo:"인천국제공항 제1터미널",
+    phone:"032-741-2114",
+    hours:"24 hours (varies by booth)",
+    rate:{usd:1340, eur:1465, jpy:920, cny:182},
+    crypto:false, featured:false,
+    note:"Convenient on arrival but rates are ~1-2% lower than city exchanges. Good for emergency KRW.",
+    tags:["open"]
+  },
+  {
+    id:12, name:"Money Box Jongno", nameKo:"머니박스 종로점",
+    area:"Jongno", filter:["open"],
+    address:"210 Jongno, Jongno-gu, Seoul",
+    addressKo:"서울 종로구 종로 210, 107호",
+    phone:"02-2269-8898",
+    hours:"09:00 – 19:00",
+    rate:{usd:1358, eur:1484, jpy:940, cny:188},
+    crypto:false, featured:false,
+    note:"Near Gyeongbok Palace and Insadong area. Convenient for cultural district visitors.",
+    tags:["open"]
+  },
+];
+
+// ── TICKER DATA ──
+const TICKERS = [
+  {coin:"BTC",  rate:"₩ 133,200,000", change:"+2.4%", up:true},
+  {coin:"ETH",  rate:"₩ 3,180,000",   change:"+1.8%", up:true},
+  {coin:"USDT", rate:"₩ 1,361",        change:"+0.1%", up:true},
+  {coin:"USDC", rate:"₩ 1,360",        change:"+0.1%", up:true},
+  {coin:"USD",  rate:"₩ 1,362",        change:"-0.2%", up:false},
+  {coin:"EUR",  rate:"₩ 1,489",        change:"-0.1%", up:false},
+  {coin:"JPY",  rate:"₩ 9.43",         change:"+0.3%", up:true},
+  {coin:"CNY",  rate:"₩ 188",          change:"-0.1%", up:false},
+];
+
+// ── LANG ──
+let currentLang = 'en';
+function setLang(lang){
+  currentLang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active', b.textContent.toLowerCase()===lang||
+      (lang==='zh'&&b.textContent==='中文')||
+      (lang==='ja'&&b.textContent==='日本語')||
+      (lang==='ko'&&b.textContent==='한국어')||
+      (lang==='en'&&b.textContent==='EN'));
+  });
+  // update search placeholder
+  const placeholders = {
+    en:'🔍  Search by name or area (Myeongdong, Hongdae, Gangnam...)',
+    zh:'🔍  按名称或地区搜索（明洞、弘大、江南...）',
+    ja:'🔍  名前またはエリアで検索（明洞、弘大、江南...）',
+    ko:'🔍  이름 또는 지역으로 검색 (명동, 홍대, 강남...)'
+  };
+  document.getElementById('searchInput').placeholder = placeholders[lang];
+  renderCards(filteredData());
+}
+
+// ── TICKER ──
+function buildTicker(){
+  const track = document.getElementById('tickerTrack');
+  track.innerHTML = TICKERS.map(t=>`
+    <div class="ticker-item">
+      <span class="ticker-coin">${t.coin}</span>
+      <span class="ticker-rate">${t.rate}</span>
+      <span class="ticker-change ${t.up?'up':'dn'}">${t.change}</span>
+    </div>
+  `).join('');
+}
+
+// ── FILTER STATE ──
+let activeFilter = 'all';
+
+function setFilter(f, el){
+  activeFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderCards(filteredData());
+}
+
+function filteredData(){
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  return EXCHANGES.filter(e=>{
+    const matchFilter = activeFilter==='all' ||
+      (activeFilter==='crypto' && e.crypto) ||
+      (activeFilter==='open' && e.tags.includes('open')) ||
+      (activeFilter==='bank' && e.tags.includes('bank')) ||
+      e.filter.includes(activeFilter);
+    const matchSearch = !q ||
+      e.name.toLowerCase().includes(q) ||
+      e.nameKo.includes(q) ||
+      e.area.toLowerCase().includes(q) ||
+      e.address.toLowerCase().includes(q);
+    return matchFilter && matchSearch;
+  });
+}
+
+function filterCards(){
+  renderCards(filteredData());
+}
+
+// ── RENDER ──
+function renderCards(data){
+  const grid = document.getElementById('cardGrid');
+  const empty = document.getElementById('emptyState');
+  const count = document.getElementById('resultCount');
+
+  if(!data.length){
+    grid.innerHTML='';
+    empty.classList.add('show');
+    count.textContent='No results';
+    return;
+  }
+  empty.classList.remove('show');
+  count.textContent = `Showing ${data.length} location${data.length!==1?'s':''}`;
+
+  const names = {en:'name', ko:'nameKo', zh:'name', ja:'name'};
+  const addrs = {en:'address', ko:'addressKo', zh:'address', ja:'address'};
+
+  grid.innerHTML = data.map((e,i)=>`
+    <div class="excard ${e.crypto?'crypto-friendly':''} ${e.featured?'featured':''}"
+         style="animation-delay:${i*0.05}s"
+         onclick="openModal(${e.id})">
+      <div class="card-left">
+        <div class="card-name">
+          ${e[names[currentLang]||'name']}
+          ${e.crypto?'<span class="badge-icon bi-krypto">CRYPTO</span>':''}
+          ${e.featured?'<span class="tag tag-featured">★ TOP RATED</span>':''}
+        </div>
+        <div class="card-area">📍 ${e.area} · ${e[addrs[currentLang]||'address']}</div>
+        <div class="card-tags">
+          ${e.tags.map(t=>
+            t==='open'?'<span class="tag tag-open">🟢 Open</span>':
+            t==='crypto'?'<span class="tag tag-crypto">🪙 Crypto</span>':
+            t==='bank'?'<span class="tag tag-bank">🏦 Bank</span>':
+            t==='featured'?'':''
+          ).join('')}
+        </div>
+        <div class="card-info">${e.note}</div>
+      </div>
+      <div class="card-right">
+        <div class="card-rate">
+          <div class="rate-label">USD → KRW</div>
+          <div class="rate-value">₩${e.rate.usd.toLocaleString()}</div>
+          <div class="rate-sub">↑ vs airport</div>
+        </div>
+        <button class="btn-nav" onclick="event.stopPropagation();openModal(${e.id})">Details →</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── MODAL ──
+function openModal(id){
+  const e = EXCHANGES.find(x=>x.id===id);
+  if(!e) return;
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-title">${e.name}</div>
+    <div class="modal-addr">📍 ${e.address}</div>
+    <div class="modal-grid">
+      <div class="modal-item">
+        <div class="modal-item-label">USD → KRW</div>
+        <div class="modal-item-val">₩ ${e.rate.usd.toLocaleString()}</div>
+      </div>
+      <div class="modal-item">
+        <div class="modal-item-label">EUR → KRW</div>
+        <div class="modal-item-val">₩ ${e.rate.eur.toLocaleString()}</div>
+      </div>
+      <div class="modal-item">
+        <div class="modal-item-label">JPY → KRW</div>
+        <div class="modal-item-val">₩ ${e.rate.jpy}</div>
+      </div>
+      <div class="modal-item">
+        <div class="modal-item-label">CNY → KRW</div>
+        <div class="modal-item-val">₩ ${e.rate.cny}</div>
+      </div>
+      <div class="modal-item">
+        <div class="modal-item-label">Hours</div>
+        <div class="modal-item-val" style="font-size:12px">${e.hours}</div>
+      </div>
+      <div class="modal-item">
+        <div class="modal-item-label">Phone</div>
+        <div class="modal-item-val" style="font-size:13px">${e.phone}</div>
+      </div>
+    </div>
+    ${e.crypto?`<div style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px;color:#67e8f9;">
+      🪙 <strong>Crypto Accepted:</strong> USDT · USDC · BTC · ETH<br/>
+      Powered by KryptoPay — instant KRW settlement
+    </div>`:''}
+    <div style="font-size:13px;color:#94a3b8;margin-bottom:20px;">${e.note}</div>
+    <div class="modal-btns">
+      <a href="https://maps.google.com?q=${encodeURIComponent(e.address)}" target="_blank" class="btn-primary">Open in Maps →</a>
+      ${e.crypto?'<a href="#" class="btn-nav secondary">Pay with KryptoPay</a>':''}
+    </div>
+  `;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(e){
+  if(e.target===document.getElementById('modal'))
+    document.getElementById('modal').classList.remove('open');
+}
+
+// ── INIT ──
+buildTicker();
+renderCards(EXCHANGES);
+
+// Animate ticker periodically
+setInterval(()=>{
+  const items = document.querySelectorAll('.ticker-item');
+  items.forEach(item=>{
+    item.style.transition='opacity .3s';
+    item.style.opacity='0.4';
+    setTimeout(()=>{item.style.opacity='1';},300);
+  });
+},4000);
+</script>
+
+</body>
+</html>
