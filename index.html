@@ -5,54 +5,22 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>KryptoPay — Seoul Currency Exchange & Crypto Payment Finder</title>
-
-<!-- SEO Meta Tags -->
-
-<meta name="description" content="Find the best currency exchange rates in Seoul, Korea. Crypto-friendly spots accepting USDT, USDC, BTC, ETH. Real-time rates for USD, EUR, JPY, CNY. 12 locations in Myeongdong, Hongdae, Gangnam."/>
+<meta name="description" content="Find the best currency exchange rates in Seoul. Crypto-friendly spots accepting USDT, USDC, BTC, ETH. Real-time rates, GPS nearest, airport savings calculator."/>
 <meta name="keywords" content="Seoul exchange, currency exchange Seoul, crypto payment Korea, USDT Korea, Bitcoin Seoul, 서울 환전소, 명동 환전, KryptoPay"/>
-<meta name="author" content="KryptoPay"/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://krypto-pay-psi.vercel.app/"/>
-
-<!-- Open Graph (카카오·Facebook·LINE 공유) -->
-
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://krypto-pay-psi.vercel.app/"/>
 <meta property="og:title" content="KryptoPay — Seoul Exchange & Crypto Finder"/>
-<meta property="og:description" content="Best currency exchange rates in Seoul. Pay with USDT, USDC, BTC, ETH at 500+ merchants. Real-time rates, map, 10 languages."/>
-<meta property="og:image" content="https://krypto-pay-psi.vercel.app/og-image.png"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:locale:alternate" content="zh_CN"/>
-<meta property="og:locale:alternate" content="ja_JP"/>
-<meta property="og:locale:alternate" content="ko_KR"/>
-
-<!-- Twitter Card -->
-
+<meta property="og:description" content="Best currency exchange in Seoul. Pay with USDT, USDC, BTC, ETH. Real-time rates, map, GPS, 10 languages."/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="KryptoPay — Seoul Exchange & Crypto Finder"/>
-<meta name="twitter:description" content="Best currency exchange in Seoul. Pay with crypto at 500+ merchants. Real-time rates."/>
-
-<!-- Structured Data (Google 리치 결과) -->
-
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebApplication",
-  "name":"KryptoPay Seoul Exchange Finder",
-  "url":"https://krypto-pay-psi.vercel.app/",
-  "description":"Find best currency exchange rates in Seoul. Crypto-friendly spots, real-time rates.",
-  "applicationCategory":"FinanceApplication",
-  "operatingSystem":"All",
-  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-  "areaServed":{"@type":"City","name":"Seoul","addressCountry":"KR"}
-}
-</script>
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"KryptoPay Seoul Exchange Finder","url":"https://krypto-pay-psi.vercel.app/","description":"Find best currency exchange rates in Seoul. Crypto-friendly spots, real-time rates.","applicationCategory":"FinanceApplication","operatingSystem":"All","areaServed":{"@type":"City","name":"Seoul","addressCountry":"KR"}}</script>
+<!-- Vercel Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
-
 <style>
 :root{
   --bg:#060e1c;--bg2:#0a1628;--panel:#0f2040;--panel2:#152850;
@@ -64,8 +32,7 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
-
-/* ── HEADER ── */
+/* HEADER */
 header{position:sticky;top:0;z-index:200;background:rgba(6,14,28,0.93);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);min-height:62px;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 .logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--white);display:flex;align-items:center;gap:7px;flex-shrink:0;}
 .logo span{color:var(--teal);}
@@ -74,188 +41,221 @@ header{position:sticky;top:0;z-index:200;background:rgba(6,14,28,0.93);backdrop-
 .lang-wrap{display:flex;flex-wrap:wrap;gap:4px;max-width:300px;justify-content:flex-end;}
 .lb{padding:4px 8px;border:1px solid var(--border);background:transparent;color:var(--sub);border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;font-family:'Space Grotesk',sans-serif;transition:all .15s;white-space:nowrap;}
 .lb.active,.lb:hover{background:var(--teal);color:#000;border-color:var(--teal);}
-
-/* ── HERO ── */
-.hero{position:relative;padding:52px 20px 28px;text-align:center;overflow:hidden;}
+/* HERO */
+.hero{position:relative;padding:50px 20px 26px;text-align:center;overflow:hidden;}
 .hero-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:540px;height:340px;background:radial-gradient(ellipse,rgba(6,182,212,0.13) 0%,transparent 70%);pointer-events:none;}
-.hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,5.5vw,54px);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:12px;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(24px,5vw,52px);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:12px;}
 .hero h1 em{font-style:normal;color:var(--teal);}
-.hero p{font-size:clamp(13px,1.8vw,16px);color:var(--text);max-width:500px;margin:0 auto 22px;line-height:1.65;}
-.stat-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+.hero p{font-size:clamp(13px,1.7vw,16px);color:var(--text);max-width:500px;margin:0 auto 20px;line-height:1.65;}
+.stat-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
 .stat-badge{padding:5px 12px;background:var(--panel);border:1px solid var(--border);border-radius:100px;font-size:12px;color:var(--teal2);display:flex;align-items:center;gap:5px;}
 .stat-badge .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.8s infinite;}
-
-/* ── LIVE RATE TICKER ── */
-.ticker-wrap{max-width:880px;margin:0 auto 22px;padding:0 20px;}
+/* TICKER */
+.ticker-wrap{max-width:880px;margin:0 auto 18px;padding:0 20px;}
 .ticker-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:11px 16px;display:flex;align-items:center;gap:10px;overflow:hidden;}
 .ticker-lbl{font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;white-space:nowrap;display:flex;align-items:center;gap:5px;}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1s infinite;}
 .ticker-scroll{display:flex;gap:18px;overflow:hidden;flex:1;}
-.ti{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:12.5px;}
+.ti{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:12px;}
 .ti-coin{font-weight:700;color:var(--white);}
 .ti-rate{color:var(--text);}
-.tc{font-size:10px;font-weight:700;padding:2px 5px;border-radius:4px;}
-.tc.up{background:rgba(52,211,153,.15);color:var(--green);}
-.tc.dn{background:rgba(248,113,113,.15);color:var(--red);}
+.tc{font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;background:rgba(52,211,153,.15);color:var(--green);}
 .ticker-update{font-size:10px;color:var(--sub);white-space:nowrap;flex-shrink:0;}
-
-/* ── CALCULATOR ── */
-.calc-wrap{max-width:880px;margin:0 auto 22px;padding:0 20px;}
-.calc-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;}
-.calc-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.calc-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.calc-input-wrap{position:relative;flex:1;min-width:120px;}
-.calc-input{width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;outline:none;transition:border-color .2s;}
+/* NEAREST BANNER */
+.nearest-wrap{max-width:880px;margin:0 auto 18px;padding:0 20px;}
+.nearest-box{background:linear-gradient(135deg,rgba(52,211,153,.1),rgba(52,211,153,.03));border:1px solid rgba(52,211,153,.25);border-radius:var(--r);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.nearest-info{display:flex;align-items:center;gap:10px;}
+.nearest-icon{font-size:22px;}
+.nearest-text p{font-size:13px;color:var(--text);}
+.nearest-text strong{color:var(--white);}
+.nearest-text span{font-size:11px;color:var(--green);}
+.btn-sm{padding:8px 14px;background:var(--green);color:#000;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;transition:opacity .17s;white-space:nowrap;}
+.btn-sm:hover{opacity:.82;}
+.btn-sm.teal{background:var(--teal);}
+.btn-sm.outline{background:transparent;border:1px solid var(--border);color:var(--teal);}
+/* SECTION WRAPPER */
+.sec{max-width:880px;margin:0 auto 18px;padding:0 20px;}
+.sec-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;}
+.sec-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+/* CALCULATOR */
+.calc-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center;}
+.calc-input{flex:1;min-width:100px;padding:11px 13px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;outline:none;transition:border-color .2s;}
 .calc-input:focus{border-color:var(--teal);}
-.calc-currency-sel{padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;outline:none;cursor:pointer;min-width:110px;}
-.calc-arrow{font-size:18px;color:var(--teal);font-weight:700;flex-shrink:0;}
-.calc-result{flex:1;min-width:120px;padding:11px 14px;background:linear-gradient(135deg,rgba(6,182,212,.12),rgba(6,182,212,.04));border:1px solid rgba(6,182,212,.28);border-radius:9px;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--white);}
-.calc-result-sub{font-size:11px;color:var(--sub);margin-top:3px;}
-.calc-note{font-size:11px;color:var(--sub);margin-top:10px;display:flex;align-items:center;gap:4px;}
-
-/* ── PROMO ── */
-.promo-wrap{max-width:880px;margin:0 auto 22px;padding:0 20px;}
-.promo-box{background:linear-gradient(135deg,rgba(6,182,212,.12) 0%,rgba(6,182,212,.03) 100%);border:1px solid rgba(6,182,212,.28);border-radius:var(--r);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-.promo-text h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--white);margin-bottom:5px;}
-.promo-text p{font-size:13px;color:var(--text);line-height:1.55;}
+.calc-sel{padding:10px 11px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;outline:none;cursor:pointer;min-width:100px;}
+.calc-arrow{font-size:16px;color:var(--teal);font-weight:700;flex-shrink:0;}
+.calc-result{flex:1;min-width:100px;padding:11px 13px;background:linear-gradient(135deg,rgba(6,182,212,.12),rgba(6,182,212,.04));border:1px solid rgba(6,182,212,.28);border-radius:9px;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--white);}
+.calc-sub{font-size:11px;color:var(--sub);margin-top:8px;}
+/* SAVINGS CALCULATOR */
+.savings-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.savings-input-wrap label{font-size:11px;color:var(--sub);display:block;margin-bottom:5px;}
+.savings-sel{width:100%;padding:10px 11px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:13px;outline:none;cursor:pointer;}
+.savings-result{background:linear-gradient(135deg,rgba(52,211,153,.1),rgba(52,211,153,.03));border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:14px 16px;margin-top:10px;}
+.savings-big{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--green);}
+.savings-detail{font-size:12px;color:var(--text);margin-top:5px;line-height:1.6;}
+/* COMPARISON BAR */
+.comp-bar-list{display:flex;flex-direction:column;gap:8px;}
+.comp-bar-item{display:flex;align-items:center;gap:10px;}
+.comp-bar-name{font-size:12px;color:var(--text);width:140px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.comp-bar-track{flex:1;height:8px;background:var(--bg2);border-radius:100px;overflow:hidden;}
+.comp-bar-fill{height:100%;border-radius:100px;transition:width .6s ease;}
+.comp-bar-val{font-size:12px;font-weight:700;color:var(--white);width:60px;text-align:right;flex-shrink:0;}
+.comp-bar-badge{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700;flex-shrink:0;}
+/* CRYPTO vs CASH */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.vs-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.vs-card.winner{border-color:rgba(52,211,153,.35);background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(52,211,153,.02));}
+.vs-title{font-size:12px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.vs-amount{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.vs-detail{font-size:11px;color:var(--sub);line-height:1.5;}
+.vs-winner-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(52,211,153,.2);color:var(--green);font-weight:700;margin-top:5px;}
+.vs-saving{background:linear-gradient(135deg,rgba(6,182,212,.1),rgba(6,182,212,.03));border:1px solid rgba(6,182,212,.22);border-radius:9px;padding:12px 14px;text-align:center;}
+.vs-saving-big{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--teal);}
+.vs-saving-sub{font-size:12px;color:var(--text);margin-top:3px;}
+/* PROMO */
+.promo-wrap{max-width:880px;margin:0 auto 18px;padding:0 20px;}
+.promo-box{background:linear-gradient(135deg,rgba(6,182,212,.12) 0%,rgba(6,182,212,.03) 100%);border:1px solid rgba(6,182,212,.28);border-radius:var(--r);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.promo-text h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.promo-text p{font-size:13px;color:var(--text);line-height:1.5;}
 .promo-text p strong{color:var(--teal2);}
-.btn-primary{padding:10px 20px;background:var(--teal);color:#000;font-weight:700;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-family:'Space Grotesk',sans-serif;white-space:nowrap;text-decoration:none;transition:transform .14s,box-shadow .2s;display:inline-block;}
+.btn-primary{padding:10px 18px;background:var(--teal);color:#000;font-weight:700;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-family:'Space Grotesk',sans-serif;white-space:nowrap;text-decoration:none;transition:transform .14s,box-shadow .2s;display:inline-block;}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(6,182,212,.3);}
-
-/* ── APP CTA ── */
-.app-wrap{max-width:880px;margin:0 auto 22px;padding:0 20px;}
-.app-box{background:linear-gradient(135deg,rgba(167,139,250,.1) 0%,rgba(6,182,212,.08) 100%);border:1px solid rgba(167,139,250,.25);border-radius:var(--r);padding:20px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-.app-icon{font-size:42px;flex-shrink:0;}
+/* SIGNUP FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.form-field label{font-size:11px;color:var(--sub);display:block;margin-bottom:5px;}
+.form-input,.form-select{width:100%;padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+.form-input::placeholder{color:var(--sub);}
+.form-input:focus,.form-select:focus{border-color:var(--teal);}
+.form-full{grid-column:1/-1;}
+.form-submit{width:100%;padding:12px;background:var(--teal);color:#000;font-weight:700;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-family:'Space Grotesk',sans-serif;transition:opacity .17s;margin-top:4px;}
+.form-submit:hover{opacity:.85;}
+.form-success{display:none;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:16px;text-align:center;color:var(--green);font-weight:600;}
+/* APP CTA */
+.app-wrap{max-width:880px;margin:0 auto 18px;padding:0 20px;}
+.app-box{background:linear-gradient(135deg,rgba(167,139,250,.1) 0%,rgba(6,182,212,.08) 100%);border:1px solid rgba(167,139,250,.25);border-radius:var(--r);padding:18px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.app-icon{font-size:38px;flex-shrink:0;}
 .app-text{flex:1;}
-.app-text h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--white);margin-bottom:5px;}
+.app-text h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--white);margin-bottom:4px;}
 .app-text p{font-size:13px;color:var(--text);line-height:1.5;}
-.app-btns{display:flex;gap:9px;flex-wrap:wrap;}
-.app-btn{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;transition:all .18s;border:1px solid;white-space:nowrap;}
+.app-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.app-btn{display:flex;align-items:center;gap:7px;padding:9px 14px;border-radius:9px;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;transition:all .17s;border:1px solid;white-space:nowrap;}
 .app-btn-ios{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:var(--white);}
 .app-btn-ios:hover{background:rgba(255,255,255,.12);}
-.app-btn-android{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.25);color:var(--green);}
-.app-btn-android:hover{background:rgba(52,211,153,.18);}
-.app-btn-icon{font-size:18px;}
-.app-badge{font-size:10px;color:var(--sub);margin-top:6px;}
-
-/* ── MAP ── */
-.map-sec{max-width:880px;margin:0 auto 20px;padding:0 20px;}
-.map-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.app-btn-and{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.25);color:var(--green);}
+.app-btn-and:hover{background:rgba(52,211,153,.18);}
+/* MAP */
+.map-sec{max-width:880px;margin:0 auto 18px;padding:0 20px;}
+.map-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
 .map-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--white);}
 .map-btn{padding:6px 13px;background:var(--panel);border:1px solid var(--border);border-radius:8px;color:var(--teal);font-size:12px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .17s;}
 .map-btn:hover{background:var(--teal);color:#000;border-color:var(--teal);}
-#mapWrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--glow);height:400px;display:none;}
+#mapWrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--glow);height:380px;display:none;}
 #mapWrap.open{display:block;}
 #map{height:100%;width:100%;}
 .leaflet-popup-content-wrapper{background:#152850!important;border:1px solid rgba(6,182,212,.3)!important;border-radius:12px!important;box-shadow:0 8px 28px rgba(0,0,0,.55)!important;color:#f8fafc!important;}
 .leaflet-popup-tip{background:#152850!important;}
-.leaflet-popup-content{margin:13px 16px!important;font-family:'Space Grotesk',sans-serif;}
+.leaflet-popup-content{margin:12px 15px!important;font-family:'Space Grotesk',sans-serif;}
 .pp-name{font-size:13px;font-weight:700;color:#f8fafc;margin-bottom:3px;}
-.pp-area{font-size:11px;color:#22d3ee;margin-bottom:6px;}
-.pp-rate{font-size:12px;color:#e2e8f0;margin-bottom:6px;}
-.pp-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;}
+.pp-area{font-size:11px;color:#22d3ee;margin-bottom:5px;}
+.pp-rate{font-size:12px;color:#e2e8f0;margin-bottom:5px;}
+.pp-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px;}
 .pp-tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;}
 .pp-tag-crypto{background:rgba(6,182,212,.2);color:#22d3ee;}
 .pp-tag-open{background:rgba(52,211,153,.18);color:#34d399;}
 .pp-tag-bank{background:rgba(139,92,246,.2);color:#a78bfa;}
-.pp-btn{display:inline-block;padding:5px 12px;background:#06b6d4;color:#000;font-weight:700;border-radius:6px;font-size:11px;text-decoration:none;font-family:'Space Grotesk',sans-serif;}
-
-/* ── SEARCH & FILTERS ── */
-.search-wrap{max-width:880px;margin:0 auto 16px;padding:0 20px;}
-.search-input{width:100%;padding:13px 17px;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s;}
+.pp-btn{display:inline-block;padding:5px 11px;background:#06b6d4;color:#000;font-weight:700;border-radius:6px;font-size:11px;text-decoration:none;}
+/* SEARCH FILTERS */
+.search-wrap{max-width:880px;margin:0 auto 14px;padding:0 20px;}
+.search-input{width:100%;padding:12px 16px;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s;}
 .search-input::placeholder{color:var(--sub);}
 .search-input:focus{border-color:var(--teal);box-shadow:var(--glow);}
-.filters{max-width:880px;margin:0 auto 18px;padding:0 20px;display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
+.filters{max-width:880px;margin:0 auto 16px;padding:0 20px;display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
 .filter-lbl{font-size:12px;color:var(--sub);font-weight:500;}
-.fc{padding:6px 12px;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:100px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;transition:all .17s;}
+.fc{padding:5px 11px;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:100px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;transition:all .17s;}
 .fc.active{background:var(--teal);color:#000;border-color:var(--teal);font-weight:600;}
 .fc:hover:not(.active){border-color:var(--teal);color:var(--teal);}
-
-/* ── SECTION HDR ── */
-.sec-hdr{max-width:880px;margin:0 auto 12px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;}
-.sec-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--white);}
+/* SEC HDR */
+.sec-hdr{max-width:880px;margin:0 auto 11px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;}
+.sec-title2{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--white);}
 .sec-count{font-size:12px;color:var(--sub);}
-
-/* ── CARDS ── */
-.grid{max-width:880px;margin:0 auto;padding:0 20px 20px;display:grid;gap:10px;}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:17px 20px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;cursor:pointer;transition:border-color .22s,transform .17s,box-shadow .22s;animation:fadeUp .35s ease both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(13px);}to{opacity:1;transform:none;}}
+/* CARDS */
+.grid{max-width:880px;margin:0 auto;padding:0 20px 18px;display:grid;gap:10px;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:16px 19px;display:grid;grid-template-columns:1fr auto;gap:11px;align-items:start;cursor:pointer;transition:border-color .22s,transform .17s,box-shadow .22s;animation:fadeUp .35s ease both;position:relative;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
 .card:hover{border-color:rgba(6,182,212,.45);transform:translateY(-2px);box-shadow:var(--glow);}
 .card.crypto-card{border-color:rgba(6,182,212,.28);background:linear-gradient(135deg,var(--panel) 0%,rgba(6,182,212,.06) 100%);}
 .card.featured-card{border-color:rgba(251,191,36,.28);background:linear-gradient(135deg,var(--panel) 0%,rgba(251,191,36,.05) 100%);}
-.card-name{font-size:16px;font-weight:700;color:var(--white);margin-bottom:3px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
-.card-area{font-size:12px;color:var(--sub);margin-bottom:9px;}
-.card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px;}
+.card.nearest-highlight{border-color:rgba(52,211,153,.4);background:linear-gradient(135deg,var(--panel) 0%,rgba(52,211,153,.07) 100%);}
+.card-name{font-size:15px;font-weight:700;color:var(--white);margin-bottom:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.card-area{font-size:12px;color:var(--sub);margin-bottom:8px;}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
 .tag{padding:3px 8px;border-radius:5px;font-size:11px;font-weight:600;}
 .t-crypto{background:rgba(6,182,212,.15);color:var(--teal2);border:1px solid rgba(6,182,212,.22);}
 .t-open{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.22);}
 .t-bank{background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.22);}
 .t-feat{background:rgba(251,191,36,.15);color:var(--gold);border:1px solid rgba(251,191,36,.22);}
-.badge-kp{font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(6,182,212,.22);color:var(--teal);font-weight:700;}
-.card-note{font-size:13px;color:var(--text);line-height:1.55;}
+.t-near{background:rgba(52,211,153,.2);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.badge-kp{font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(6,182,212,.22);color:var(--teal);font-weight:700;}
+.card-note{font-size:13px;color:var(--text);line-height:1.5;}
 .card-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
 .rate-lbl{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;}
-.rate-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--white);}
+.rate-val{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;color:var(--white);}
 .rate-live{font-size:10px;color:var(--green);display:flex;align-items:center;gap:3px;}
-.btn-detail{padding:7px 13px;background:var(--teal);color:#000;font-weight:700;border:none;border-radius:7px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;transition:opacity .17s;white-space:nowrap;}
+.btn-detail{padding:6px 12px;background:var(--teal);color:#000;font-weight:700;border:none;border-radius:7px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;transition:opacity .17s;white-space:nowrap;}
 .btn-detail:hover{opacity:.82;}
-.btn-map-sm{padding:6px 11px;background:transparent;border:1px solid var(--border);color:var(--teal);font-weight:600;border-radius:7px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;transition:all .17s;white-space:nowrap;}
+.btn-map-sm{padding:5px 10px;background:transparent;border:1px solid var(--border);color:var(--teal);font-weight:600;border-radius:7px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;transition:all .17s;white-space:nowrap;}
 .btn-map-sm:hover{background:var(--panel2);border-color:var(--teal);}
-
-/* ── REVIEWS ── */
-.reviews-wrap{max-width:880px;margin:0 auto 22px;padding:0 20px;}
-.reviews-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
-.review-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;}
-.review-stars{color:var(--gold);font-size:13px;margin-bottom:7px;letter-spacing:1px;}
-.review-text{font-size:13px;color:var(--text);line-height:1.55;margin-bottom:10px;font-style:italic;}
-.review-author{display:flex;align-items:center;gap:8px;}
-.review-avatar{width:32px;height:32px;border-radius:50%;background:var(--panel2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;}
+/* FAV BUTTON */
+.fav-btn{position:absolute;top:12px;right:12px;background:transparent;border:none;cursor:pointer;font-size:18px;line-height:1;padding:2px;z-index:2;transition:transform .15s;}
+.fav-btn:hover{transform:scale(1.2);}
+/* REVIEWS */
+.reviews-wrap{max-width:880px;margin:0 auto 18px;padding:0 20px;}
+.reviews-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.review-summary{background:linear-gradient(135deg,rgba(251,191,36,.1),rgba(251,191,36,.03));border:1px solid rgba(251,191,36,.2);border-radius:10px;padding:13px 16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.review-big{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:var(--gold);line-height:1;}
+.review-sub .stars{color:var(--gold);font-size:15px;letter-spacing:2px;}
+.review-sub p{font-size:12px;color:var(--sub);margin-top:3px;}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px;}
+.review-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;}
+.review-stars{color:var(--gold);font-size:12px;margin-bottom:6px;}
+.review-text{font-size:12px;color:var(--text);line-height:1.55;margin-bottom:9px;font-style:italic;}
+.review-author{display:flex;align-items:center;gap:7px;}
+.review-avatar{width:30px;height:30px;border-radius:50%;background:var(--panel2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
 .review-name{font-size:12px;font-weight:600;color:var(--white);}
 .review-country{font-size:11px;color:var(--sub);}
-.review-summary{background:linear-gradient(135deg,rgba(251,191,36,.1),rgba(251,191,36,.03));border:1px solid rgba(251,191,36,.2);border-radius:10px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-.review-big-score{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--gold);line-height:1;}
-.review-score-detail{}
-.review-score-detail .stars{color:var(--gold);font-size:16px;letter-spacing:2px;}
-.review-score-detail p{font-size:12px;color:var(--sub);margin-top:3px;}
-
-/* ── MODAL ── */
+/* MODAL */
 .overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);align-items:center;justify-content:center;}
 .overlay.open{display:flex;}
-.modal-box{background:var(--panel2);border:1px solid var(--border);border-radius:16px;padding:26px;max-width:460px;width:92%;position:relative;animation:fadeUp .27s ease;max-height:90vh;overflow-y:auto;}
-.mc-btn{position:absolute;top:14px;right:14px;background:transparent;border:none;color:var(--sub);font-size:20px;cursor:pointer;}
+.modal-box{background:var(--panel2);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:450px;width:92%;position:relative;animation:fadeUp .27s ease;max-height:90vh;overflow-y:auto;}
+.mc-btn{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(--sub);font-size:20px;cursor:pointer;}
 .mc-btn:hover{color:var(--white);}
-.m-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--white);margin-bottom:5px;}
-.m-addr{font-size:12px;color:var(--teal);margin-bottom:16px;}
-.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;}
-.m-item{background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:11px;}
+.m-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.m-addr{font-size:12px;color:var(--teal);margin-bottom:14px;}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.m-item{background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:10px;}
 .m-lbl{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
-.m-val{font-size:14px;font-weight:600;color:var(--white);}
+.m-val{font-size:13px;font-weight:600;color:var(--white);}
 .m-btns{display:flex;gap:8px;flex-wrap:wrap;}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--border);padding:26px 20px;text-align:center;color:var(--sub);font-size:12px;line-height:1.9;}
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;color:var(--sub);font-size:12px;line-height:1.9;}
 footer a{color:var(--teal);text-decoration:none;}
 footer strong{color:var(--white);}
-
-/* ── LOADING SPINNER ── */
-.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(6,182,212,.3);border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;}
+/* SPIN */
+.spin{display:inline-block;width:11px;height:11px;border:2px solid rgba(6,182,212,.3);border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;}
 @keyframes spin{to{transform:rotate(360deg);}}
-
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(max-width:560px){
   .card{grid-template-columns:1fr;}
   .card-right{flex-direction:row;align-items:center;flex-wrap:wrap;}
-  .hero h1{font-size:26px;}
+  .hero h1{font-size:24px;}
   .promo-box,.app-box{flex-direction:column;}
-  #mapWrap{height:280px;}
+  #mapWrap{height:260px;}
   .lang-wrap{max-width:220px;}
   .lb{font-size:10px;padding:3px 6px;}
+  .savings-grid,.vs-grid,.form-grid{grid-template-columns:1fr;}
   .calc-row{flex-direction:column;}
   .calc-result{width:100%;}
 }
-
-/* ── LANG ── */
+/* LANG */
 .hero [data-lang],.promo-box [data-lang],.search-wrap [data-lang],.app-text [data-lang]{display:none;}
 .lang-en .hero [data-lang="en"],.lang-en .promo-box [data-lang="en"],.lang-en .search-wrap [data-lang="en"],.lang-en .app-text [data-lang="en"]{display:block;}
 .lang-zh .hero [data-lang="zh"],.lang-zh .promo-box [data-lang="zh"],.lang-zh .search-wrap [data-lang="zh"],.lang-zh .app-text [data-lang="zh"]{display:block;}
@@ -279,7 +279,6 @@ footer strong{color:var(--white);}
 .lang-ar .promo-box a[data-lang="ar"]{display:inline-block;}
 .lang-es .promo-box a[data-lang="es"]{display:inline-block;}
 </style>
-
 </head>
 <body class="lang-en">
 
@@ -315,24 +314,24 @@ footer strong{color:var(--white);}
   <h1 data-lang="th">ค้นหาจุดแลกเงินใน<em>โซล</em></h1>
   <h1 data-lang="ar">ابحث عن الصرافة في <em>سيول</em></h1>
   <h1 data-lang="es">Casas de cambio en <em>Seúl</em></h1>
-  <p data-lang="en">Best rates · Crypto-friendly spots · Real-time rates for 18.93M visitors</p>
-  <p data-lang="zh">最优汇率 · 支持加密货币 · 为1893万游客提供实时汇率</p>
-  <p data-lang="ja">最良レート · 暗号通貨対応 · 1,893万人向けリアルタイム</p>
-  <p data-lang="ko">최적 환율 · 크립토 환전 · 1,893만 방문객 실시간 정보</p>
-  <p data-lang="tw">最優匯率 · 支援加密貨幣 · 1,893萬遊客即時匯率</p>
-  <p data-lang="hk">最優匯率 · 加密貨幣友好 · 1,893萬旅客即時資訊</p>
-  <p data-lang="vi">Tỷ giá tốt nhất · Hỗ trợ Crypto · Thực cho 18.93 triệu du khách</p>
-  <p data-lang="th">อัตราดีที่สุด · รับ Crypto · ข้อมูลเรียลไทม์ 18.93 ล้านนักท่องเที่ยว</p>
-  <p data-lang="ar">أفضل الأسعار · صديق للعملات الرقمية · معلومات فورية لـ 18.93 مليون زائر</p>
-  <p data-lang="es">Mejores tasas · Cripto-amigable · Info en tiempo real 18.93M visitantes</p>
+  <p data-lang="en">Best rates · Crypto-friendly · GPS nearest · Real-time for 18.93M visitors</p>
+  <p data-lang="zh">最优汇率 · 支持加密货币 · GPS最近 · 1893万游客实时信息</p>
+  <p data-lang="ja">最良レート · 暗号通貨対応 · GPS最寄り · 1,893万人リアルタイム</p>
+  <p data-lang="ko">최적 환율 · 크립토 · GPS 최근접 · 1,893만 방문객 실시간</p>
+  <p data-lang="tw">最優匯率 · 支援加密貨幣 · GPS最近 · 1,893萬遊客即時</p>
+  <p data-lang="hk">最優匯率 · 加密貨幣 · GPS最近 · 1,893萬旅客即時</p>
+  <p data-lang="vi">Tỷ giá tốt · Crypto · GPS gần nhất · 18.93 triệu du khách</p>
+  <p data-lang="th">อัตราดี · Crypto · GPS ใกล้สุด · 18.93 ล้านนักท่องเที่ยว</p>
+  <p data-lang="ar">أفضل الأسعار · Crypto · أقرب GPS · 18.93 مليون زائر</p>
+  <p data-lang="es">Mejores tasas · Crypto · GPS más cercano · 18.93M visitantes</p>
   <div class="stat-row">
     <div class="stat-badge"><span class="dot"></span>18.93M visitors 2025</div>
-    <div class="stat-badge"><span class="dot"></span><span id="apiStatusBadge">Loading live rates...</span></div>
-    <div class="stat-badge"><span class="dot"></span>Crypto spots</div>
+    <div class="stat-badge"><span class="dot"></span><span id="apiStatus">Loading rates...</span></div>
+    <div class="stat-badge"><span class="dot"></span><span id="favCount">0</span> saved</div>
   </div>
 </section>
 
-<!-- LIVE TICKER -->
+<!-- TICKER -->
 
 <div class="ticker-wrap">
   <div class="ticker-box">
@@ -342,16 +341,29 @@ footer strong{color:var(--white);}
   </div>
 </div>
 
-<!-- CALCULATOR -->
+<!-- ① GPS NEAREST -->
 
-<div class="calc-wrap">
-  <div class="calc-box">
-    <div class="calc-title">🧮 Currency Calculator <span style="font-size:11px;color:var(--sub);font-weight:400;font-family:'Space Grotesk',sans-serif;">— live rates</span></div>
-    <div class="calc-row">
-      <div class="calc-input-wrap">
-        <input class="calc-input" id="calcAmount" type="number" value="100" min="0" oninput="calcConvert()"/>
+<div class="nearest-wrap" id="nearestWrap">
+  <div class="nearest-box">
+    <div class="nearest-info">
+      <div class="nearest-icon">📍</div>
+      <div class="nearest-text">
+        <p id="nearestText"><strong>Find nearest exchange</strong></p>
+        <span id="nearestSub">Use your location to find the closest spot</span>
       </div>
-      <select class="calc-currency-sel" id="calcFrom" onchange="calcConvert()">
+    </div>
+    <button class="btn-sm" onclick="findNearest()">📡 Find Nearest</button>
+  </div>
+</div>
+
+<!-- ② CALCULATOR -->
+
+<div class="sec">
+  <div class="sec-box">
+    <div class="sec-title">🧮 Currency Calculator <span style="font-size:11px;color:var(--sub);font-weight:400;font-family:'Space Grotesk',sans-serif;">— live rates</span></div>
+    <div class="calc-row">
+      <input class="calc-input" id="calcAmt" type="number" value="100" min="0" oninput="calcConvert()"/>
+      <select class="calc-sel" id="calcFrom" onchange="calcConvert()">
         <option value="USD">🇺🇸 USD</option>
         <option value="EUR">🇪🇺 EUR</option>
         <option value="JPY">🇯🇵 JPY</option>
@@ -364,12 +376,80 @@ footer strong{color:var(--white);}
         <option value="USDC">💵 USDC</option>
       </select>
       <div class="calc-arrow">→</div>
-      <div>
-        <div class="calc-result" id="calcResult">₩ –</div>
-        <div class="calc-result-sub" id="calcResultSub">Enter amount above</div>
+      <div class="calc-result" id="calcResult">₩ –</div>
+    </div>
+    <div class="calc-sub" id="calcSub">⚡ Updates every 60s from live market data</div>
+  </div>
+</div>
+
+<!-- ③ RATE COMPARISON BAR -->
+
+<div class="sec">
+  <div class="sec-box">
+    <div class="sec-title">📊 Best USD Rate Today <span style="font-size:11px;color:var(--sub);font-weight:400;font-family:'Space Grotesk',sans-serif;">— ranked</span></div>
+    <div class="comp-bar-list" id="compBars"></div>
+    <div style="font-size:11px;color:var(--sub);margin-top:10px;">💡 Higher bar = better rate for you. Airport rate shown for reference.</div>
+  </div>
+</div>
+
+<!-- ⑥ AIRPORT vs CITY SAVINGS -->
+
+<div class="sec">
+  <div class="sec-box">
+    <div class="sec-title">✈️ Airport vs City Savings</div>
+    <div class="savings-grid">
+      <div class="savings-input-wrap">
+        <label>Amount to exchange</label>
+        <input class="calc-input" id="savingsAmt" type="number" value="500" min="1" oninput="calcSavings()"/>
+      </div>
+      <div class="savings-input-wrap">
+        <label>Currency</label>
+        <select class="savings-sel" id="savingsCur" onchange="calcSavings()">
+          <option value="USD">🇺🇸 USD</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="JPY">🇯🇵 JPY</option>
+          <option value="CNY">🇨🇳 CNY</option>
+        </select>
       </div>
     </div>
-    <div class="calc-note" id="calcNote">⚡ Rates update every 60 seconds from live market data</div>
+    <div class="savings-result" id="savingsResult">
+      <div style="font-size:12px;color:var(--sub);">Loading rates...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑦ CRYPTO vs CASH -->
+
+<div class="sec">
+  <div class="sec-box">
+    <div class="sec-title">🪙 KryptoPay vs Cash Exchange</div>
+    <div style="display:flex;gap:9px;margin-bottom:12px;align-items:center;flex-wrap:wrap;">
+      <input class="calc-input" id="vsAmt" type="number" value="200" min="1" style="max-width:120px;" oninput="calcVs()"/>
+      <select class="calc-sel" id="vsCur" onchange="calcVs()">
+        <option value="USD">🇺🇸 USD</option>
+        <option value="USDT">💵 USDT</option>
+        <option value="ETH">Ξ ETH</option>
+        <option value="BTC">₿ BTC</option>
+      </select>
+      <span style="font-size:13px;color:var(--sub);">→ KRW received</span>
+    </div>
+    <div class="vs-grid">
+      <div class="vs-card winner" id="vsKrypto">
+        <div class="vs-title">🪙 KryptoPay</div>
+        <div class="vs-amount" id="vsKryptoAmt">₩ –</div>
+        <div class="vs-detail" id="vsKryptoDetail">Fee: 0.8% · Instant</div>
+        <div class="vs-winner-badge">✓ Recommended</div>
+      </div>
+      <div class="vs-card" id="vsCash">
+        <div class="vs-title">💱 Best Exchange</div>
+        <div class="vs-amount" id="vsCashAmt">₩ –</div>
+        <div class="vs-detail" id="vsCashDetail">Fee: ~1.4% · Queue needed</div>
+      </div>
+    </div>
+    <div class="vs-saving" id="vsSaving">
+      <div class="vs-saving-big" id="vsSavingAmt">–</div>
+      <div class="vs-saving-sub">You save with KryptoPay</div>
+    </div>
   </div>
 </div>
 
@@ -388,27 +468,27 @@ footer strong{color:var(--white);}
       <h3 data-lang="th">🪙 ชำระด้วย Crypto — ไม่ต้องต่อคิว</h3>
       <h3 data-lang="ar">🪙 ادفع بالعملات الرقمية — تخطَّ الطابور</h3>
       <h3 data-lang="es">🪙 Paga con Crypto — Sin colas</h3>
-      <p data-lang="en">Use <strong>USDT, USDC, BTC or ETH</strong> at 500+ Seoul merchants. Instant KRW. No hidden fees.</p>
-      <p data-lang="zh">在首尔500+商家用<strong>USDT、USDC、BTC或ETH</strong>。即时韩元，无隐藏费用。</p>
-      <p data-lang="ja">500以上の店舗で<strong>USDT・USDC・BTC・ETH</strong>。即時KRW換算。</p>
+      <p data-lang="en">Use <strong>USDT, USDC, BTC or ETH</strong> at 500+ Seoul merchants. Instant KRW.</p>
+      <p data-lang="zh">在首尔500+商家用<strong>USDT、USDC、BTC或ETH</strong>。即时韩元。</p>
+      <p data-lang="ja">500以上の店舗で<strong>USDT・USDC・BTC・ETH</strong>。即時KRW。</p>
       <p data-lang="ko">서울 500개+ 가맹점에서 <strong>USDT·USDC·BTC·ETH</strong>로 즉시 결제.</p>
-      <p data-lang="tw">在首爾500+商家用<strong>USDT、USDC、BTC或ETH</strong>。即時韓元換算。</p>
+      <p data-lang="tw">在首爾500+商家用<strong>USDT、USDC、BTC或ETH</strong>。即時韓元。</p>
       <p data-lang="hk">喺首爾500+商戶用<strong>USDT、USDC、BTC或ETH</strong>。即時韓元。</p>
       <p data-lang="vi">Dùng <strong>USDT, USDC, BTC hoặc ETH</strong> tại 500+ cửa hàng Seoul.</p>
       <p data-lang="th">ใช้ <strong>USDT, USDC, BTC หรือ ETH</strong> ที่ร้านกว่า 500 แห่งในโซล</p>
       <p data-lang="ar">استخدم <strong>USDT أو USDC أو BTC أو ETH</strong> في 500+ متجر بسيول.</p>
       <p data-lang="es">Usa <strong>USDT, USDC, BTC o ETH</strong> en 500+ comercios de Seúl.</p>
     </div>
-    <a href="#" class="btn-primary" data-lang="en">Try KryptoPay →</a>
-    <a href="#" class="btn-primary" data-lang="zh">立即体验 →</a>
-    <a href="#" class="btn-primary" data-lang="ja">今すぐ試す →</a>
-    <a href="#" class="btn-primary" data-lang="ko">지금 시작 →</a>
-    <a href="#" class="btn-primary" data-lang="tw">立即體驗 →</a>
-    <a href="#" class="btn-primary" data-lang="hk">立即試用 →</a>
-    <a href="#" class="btn-primary" data-lang="vi">Dùng thử →</a>
-    <a href="#" class="btn-primary" data-lang="th">ลองเลย →</a>
-    <a href="#" class="btn-primary" data-lang="ar">جرّب الآن →</a>
-    <a href="#" class="btn-primary" data-lang="es">Probar →</a>
+    <a href="#signup" class="btn-primary" data-lang="en">Get Early Access →</a>
+    <a href="#signup" class="btn-primary" data-lang="zh">立即申请 →</a>
+    <a href="#signup" class="btn-primary" data-lang="ja">早期登録 →</a>
+    <a href="#signup" class="btn-primary" data-lang="ko">얼리 액세스 신청 →</a>
+    <a href="#signup" class="btn-primary" data-lang="tw">立即申請 →</a>
+    <a href="#signup" class="btn-primary" data-lang="hk">立即申請 →</a>
+    <a href="#signup" class="btn-primary" data-lang="vi">Đăng ký sớm →</a>
+    <a href="#signup" class="btn-primary" data-lang="th">ลงทะเบียนก่อน →</a>
+    <a href="#signup" class="btn-primary" data-lang="ar">احصل على وصول مبكر →</a>
+    <a href="#signup" class="btn-primary" data-lang="es">Acceso anticipado →</a>
   </div>
 </div>
 
@@ -428,23 +508,23 @@ footer strong{color:var(--white);}
       <h3 data-lang="th">ดาวน์โหลดแอป KryptoPay</h3>
       <h3 data-lang="ar">حمّل تطبيق KryptoPay</h3>
       <h3 data-lang="es">Descarga la app KryptoPay</h3>
-      <p data-lang="en">Pay with crypto at 500+ Seoul merchants. Find exchanges. Live rates. All in one app.</p>
-      <p data-lang="zh">在首尔500+商家用加密货币支付。找换汇点。实时汇率。一个应用搞定。</p>
-      <p data-lang="ja">ソウル500以上の店舗で暗号通貨決済。両替所検索。リアルタイムレート。</p>
-      <p data-lang="ko">500개+ 가맹점 크립토 결제 · 환전소 찾기 · 실시간 환율 · 모두 하나의 앱에서.</p>
-      <p data-lang="tw">在首爾500+商家加密貨幣支付。尋找換匯點。即時匯率。一個應用程式搞定。</p>
-      <p data-lang="hk">喺首爾500+商戶加密貨幣付款。搵換匯點。即時匯率。一個App搞掂。</p>
-      <p data-lang="vi">Thanh toán crypto tại 500+ cửa hàng Seoul. Tìm điểm đổi tiền. Tỷ giá thực.</p>
-      <p data-lang="th">ชำระ crypto ที่ร้านกว่า 500 แห่งในโซล ค้นหาจุดแลกเงิน อัตราเรียลไทม์</p>
-      <p data-lang="ar">ادفع بالعملات الرقمية في 500+ متجر. ابحث عن الصرافة. أسعار فورية.</p>
-      <p data-lang="es">Paga con crypto en 500+ comercios. Encuentra cambios. Tasas en vivo.</p>
+      <p data-lang="en">Pay with crypto · Find exchanges · Live rates · All in one app.</p>
+      <p data-lang="zh">加密货币支付 · 找换汇点 · 实时汇率 · 一个应用搞定。</p>
+      <p data-lang="ja">暗号通貨決済 · 両替所検索 · リアルタイム · ひとつのアプリで。</p>
+      <p data-lang="ko">크립토 결제 · 환전소 찾기 · 실시간 환율 · 하나의 앱에서.</p>
+      <p data-lang="tw">加密貨幣支付 · 換匯地點 · 即時匯率 · 一個App搞定。</p>
+      <p data-lang="hk">加密貨幣付款 · 換匯地點 · 即時匯率 · 一個App搞掂。</p>
+      <p data-lang="vi">Thanh toán crypto · Tìm điểm đổi · Tỷ giá live · Trong một app.</p>
+      <p data-lang="th">ชำระ crypto · ค้นหาจุดแลก · อัตราเรียลไทม์ · ครบในแอปเดียว</p>
+      <p data-lang="ar">ادفع بالعملات الرقمية · ابحث عن الصرافة · أسعار فورية · كل شيء في تطبيق واحد</p>
+      <p data-lang="es">Paga con crypto · Encuentra cambios · Tasas en vivo · Todo en una app.</p>
     </div>
     <div class="app-btns">
-      <a href="#" class="app-btn app-btn-ios"><span class="app-btn-icon">🍎</span> App Store</a>
-      <a href="#" class="app-btn app-btn-android"><span class="app-btn-icon">🤖</span> Google Play</a>
+      <a href="#signup" class="app-btn app-btn-ios"><span>🍎</span> App Store</a>
+      <a href="#signup" class="app-btn app-btn-and"><span>🤖</span> Google Play</a>
     </div>
   </div>
-  <div class="app-badge" style="text-align:center;margin-top:8px;">⭐ 4.8 · 2,400+ reviews · Coming Soon</div>
+  <div style="text-align:center;font-size:11px;color:var(--sub);margin-top:7px;">⭐ 4.8 · 2,400+ reviews · Launching Soon</div>
 </div>
 
 <!-- MAP -->
@@ -472,23 +552,24 @@ footer strong{color:var(--white);}
   <button class="fc" onclick="setFilter('crypto',this)">🪙 Crypto</button>
   <button class="fc" onclick="setFilter('open',this)">🟢 Open Now</button>
   <button class="fc" onclick="setFilter('bank',this)">🏦 Bank</button>
+  <button class="fc" onclick="setFilter('fav',this)">❤️ Saved</button>
   <button class="fc" onclick="setFilter('myeongdong',this)">Myeongdong</button>
   <button class="fc" onclick="setFilter('hongdae',this)">Hongdae</button>
   <button class="fc" onclick="setFilter('gangnam',this)">Gangnam</button>
 </div>
 
-<!-- SECTION HDR -->
+<!-- SEC HDR -->
 
 <div class="sec-hdr">
-  <div class="sec-title">Exchange Locations</div>
+  <div class="sec-title2">Exchange Locations</div>
   <div class="sec-count" id="resultCount">Showing all locations</div>
 </div>
 
 <!-- CARDS -->
 
 <div class="grid" id="cardGrid"></div>
-<div id="emptyState" style="display:none;text-align:center;padding:50px 20px;">
-  <p style="color:var(--sub);">No results found. Try a different search or filter.</p>
+<div id="emptyState" style="display:none;text-align:center;padding:48px 20px;">
+  <p style="color:var(--sub);">No results found. Try a different filter.</p>
 </div>
 
 <!-- REVIEWS -->
@@ -496,13 +577,67 @@ footer strong{color:var(--white);}
 <div class="reviews-wrap">
   <div class="reviews-title">⭐ What Visitors Say</div>
   <div class="review-summary">
-    <div class="review-big-score">4.8</div>
-    <div class="review-score-detail">
+    <div class="review-big">4.8</div>
+    <div class="review-sub">
       <div class="stars">★★★★★</div>
-      <p>Based on 2,400+ reviews from 18 countries</p>
+      <p>Based on 2,400+ reviews · 18 countries</p>
     </div>
   </div>
   <div class="reviews-grid" id="reviewsGrid"></div>
+</div>
+
+<!-- ② SIGNUP FORM -->
+
+<div class="sec" id="signup">
+  <div class="sec-box">
+    <div class="sec-title">🚀 Join the Waitlist — Early Access</div>
+    <div id="formSuccess" class="form-success">
+      ✅ You're on the list! We'll notify you when KryptoPay launches. <br/>Check your email for confirmation.
+    </div>
+    <form id="signupForm" onsubmit="submitForm(event)">
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Full Name *</label>
+          <input class="form-input" id="fName" type="text" placeholder="John Smith" required/>
+        </div>
+        <div class="form-field">
+          <label>Email *</label>
+          <input class="form-input" id="fEmail" type="email" placeholder="you@email.com" required/>
+        </div>
+        <div class="form-field">
+          <label>I am a...</label>
+          <select class="form-select" id="fType">
+            <option value="tourist">🌏 Tourist / Visitor</option>
+            <option value="expat">🏢 Expat / Foreign Worker</option>
+            <option value="student">🎓 Student</option>
+            <option value="merchant">🏪 Merchant (want to accept crypto)</option>
+            <option value="business">💼 Business Partner</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Country</label>
+          <select class="form-select" id="fCountry">
+            <option value="cn">🇨🇳 China</option>
+            <option value="jp">🇯🇵 Japan</option>
+            <option value="tw">🇹🇼 Taiwan</option>
+            <option value="us">🇺🇸 USA</option>
+            <option value="hk">🇭🇰 Hong Kong</option>
+            <option value="vn">🇻🇳 Vietnam</option>
+            <option value="th">🇹🇭 Thailand</option>
+            <option value="other">🌍 Other</option>
+          </select>
+        </div>
+        <div class="form-field form-full">
+          <label>What would you use KryptoPay for?</label>
+          <input class="form-input" id="fUse" type="text" placeholder="e.g. Pay at restaurants, exchange USDT, send money..."/>
+        </div>
+      </div>
+      <button class="form-submit" type="submit">🚀 Join Waitlist — It's Free</button>
+    </form>
+    <div style="font-size:11px;color:var(--sub);text-align:center;margin-top:9px;">
+      No spam. Early users get 0% fee for the first 3 months. · <span id="signupCount">247</span> people joined already.
+    </div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -518,157 +653,205 @@ footer strong{color:var(--white);}
 
 <footer>
   <strong>KryptoPay</strong> — Seoul's Crypto Payment Platform<br/>
-  Rates powered by CoinGecko & ExchangeRate-API · Verify at the counter · Updated every 60s<br/>
-  <a href="#">About</a> · <a href="#">For Merchants</a> · <a href="#">Contact</a> · <a href="#">Privacy</a><br/><br/>
+  Rates: CoinGecko + ExchangeRate-API · Updated every 60s · Verify at counter<br/>
+  <a href="#signup">Join Waitlist</a> · <a href="#">For Merchants</a> · <a href="#">Contact</a> · <a href="#">Privacy</a><br/><br/>
   <span style="font-size:11px;color:#334155;">
-    Top visitor nationalities 2025: 🇨🇳 China 548万 · 🇯🇵 Japan 365万 · 🇹🇼 Taiwan 189万 · 🇺🇸 USA 148万 · 🇭🇰 HK 62万<br/>
-    Languages: 中文 · 日本語 · 한국어 · 繁體 · 粵語 · Tiếng Việt · ภาษาไทย · العربية · Español<br/>
-    Source: Korea Tourism Organization 2025 · © 2026 KryptoPay Inc.
+    Top visitors 2025: 🇨🇳548万 · 🇯🇵365万 · 🇹🇼189万 · 🇺🇸148万 · 🇭🇰62万<br/>
+    Source: Korea Tourism Organization 2025 · Analytics by Vercel · © 2026 KryptoPay Inc.
   </span>
 </footer>
 
 <script>
-// ─── EXCHANGE DATA ──────────────────────────────────────
-const EXCHANGES=[
-  {id:1,name:"Myeongdong Jeil Exchange",nameKo:"명동 제일환전",area:"Myeongdong",filter:["myeongdong","open"],address:"68-1 Namdaemunno, Jung-gu, Seoul",addressKo:"서울 중구 남대문로 68-1",phone:"02-773-0000",hours:"09:00–22:00 (Daily)",rate:{usd:1358,eur:1485,jpy:940,cny:188},spread:1.2,crypto:false,featured:true,note:"Best USD/EUR rates in Myeongdong. No commission. Bring crisp 100-USD bills.",tags:["open","featured"]},
-  {id:2,name:"Money Box Myeongdong",nameKo:"머니박스 명동본점",area:"Myeongdong",filter:["myeongdong","open"],address:"108-1 Myeongdong 2-ga, Jung-gu",addressKo:"서울 중구 명동2가 108-1",phone:"02-3789-0888",hours:"09:00–21:00 (Mon–Sat)",rate:{usd:1356,eur:1482,jpy:937,cny:187},spread:1.5,crypto:false,featured:false,note:"Large volume exchanger. AUD, CAD, SGD also supported.",tags:["open"]},
-  {id:3,name:"KryptoPay Partner — Myeongdong",nameKo:"KryptoPay 파트너 명동",area:"Myeongdong",filter:["myeongdong","crypto","open"],address:"Near Myeongdong Station Exit 6",addressKo:"서울 중구 명동역 6번 출구 인근",phone:"Coming Soon",hours:"10:00–21:00",rate:{usd:1361,eur:1488,jpy:943,cny:189},spread:0.8,crypto:true,featured:false,note:"✨ KryptoPay partner. Pay or exchange with USDT · USDC · BTC · ETH. Instant KRW.",tags:["open","crypto"]},
-  {id:4,name:"Shinhan Bank Myeongdong",nameKo:"신한은행 명동지점",area:"Myeongdong",filter:["myeongdong","bank","open"],address:"15 Myeongdong-gil 9, Jung-gu",addressKo:"서울 중구 명동9길 15",phone:"1599-8000",hours:"09:00–16:00 (Weekdays)",rate:{usd:1352,eur:1479,jpy:932,cny:185},spread:2.0,crypto:false,featured:false,note:"Official bank rate. Up to 90% fee discount via app reservation. ID required.",tags:["open","bank"]},
-  {id:5,name:"Money Box Mapo",nameKo:"머니박스 마포점",area:"Hongdae",filter:["hongdae","open"],address:"68 Mapo-daero, Mapo-gu",addressKo:"서울 마포구 마포대로 68",phone:"02-711-1888",hours:"09:30–20:30 (Mon–Sat)",rate:{usd:1357,eur:1483,jpy:939,cny:188},spread:1.4,crypto:false,featured:false,note:"Best option near Hongdae & Sinchon. Good JPY rates.",tags:["open"]},
-  {id:6,name:"Money Box Worldcup Park",nameKo:"머니박스 월드컵점",area:"Hongdae",filter:["hongdae","open"],address:"93 Worldcupbukno 2-gil, Mapo-gu",addressKo:"서울 마포구 월드컵북로 2길 93",phone:"02-3144-1288",hours:"10:00–20:00",rate:{usd:1355,eur:1481,jpy:936,cny:187},spread:1.5,crypto:false,featured:false,note:"Near Hongdae park area. Convenient for weekend visitors.",tags:["open"]},
-  {id:7,name:"KryptoPay Partner — Hongdae",nameKo:"KryptoPay 파트너 홍대",area:"Hongdae",filter:["hongdae","crypto","open"],address:"Near Hongik Univ. Station Exit 9",addressKo:"홍익대학교역 9번 출구 인근",phone:"Coming Soon",hours:"11:00–23:00",rate:{usd:1360,eur:1487,jpy:942,cny:189},spread:0.8,crypto:true,featured:false,note:"✨ KryptoPay partner. Open late — perfect for nightlife area.",tags:["open","crypto"]},
-  {id:8,name:"Money Box Gangnam",nameKo:"머니박스 강남점",area:"Gangnam",filter:["gangnam","open"],address:"127 Dosan-daero, Gangnam-gu",addressKo:"서울 강남구 도산대로 127",phone:"02-518-8883",hours:"10:00–19:00 (Mon–Sat)",rate:{usd:1356,eur:1482,jpy:938,cny:187},spread:1.4,crypto:false,featured:false,note:"Convenient for Gangnam / Garosu-gil / COEX area.",tags:["open"]},
-  {id:9,name:"KEB Hana Bank Gangnam",nameKo:"하나은행 강남점",area:"Gangnam",filter:["gangnam","bank","open"],address:"Teheranno, Gangnam-gu",addressKo:"서울 강남구 테헤란로",phone:"1599-1111",hours:"09:00–16:00 (Weekdays)",rate:{usd:1351,eur:1478,jpy:931,cny:185},spread:2.0,crypto:false,featured:false,note:"Bank-guaranteed rates. International remittance available.",tags:["open","bank"]},
-  {id:10,name:"KryptoPay Partner — Gangnam",nameKo:"KryptoPay 파트너 강남",area:"Gangnam",filter:["gangnam","crypto","open"],address:"Near COEX Mall, Samseong-dong",addressKo:"서울 강남구 삼성동 코엑스몰 인근",phone:"Coming Soon",hours:"10:00–21:00",rate:{usd:1362,eur:1489,jpy:944,cny:190},spread:0.8,crypto:true,featured:false,note:"✨ KryptoPay flagship. Full BTC/ETH/USDT/USDC. Business visitors welcome.",tags:["open","crypto"]},
-  {id:11,name:"Incheon Airport T1 Exchange",nameKo:"인천공항 1터미널 환전",area:"Incheon Airport",filter:["open"],address:"Terminal 1, Incheon International Airport",addressKo:"인천국제공항 제1터미널",phone:"032-741-2114",hours:"24h (varies)",rate:{usd:1340,eur:1465,jpy:920,cny:182},spread:3.0,crypto:false,featured:false,note:"Convenient on arrival but ~1–2% lower than city. Good for emergency KRW.",tags:["open"]},
-  {id:12,name:"Money Box Jongno",nameKo:"머니박스 종로점",area:"Jongno",filter:["open"],address:"210 Jongno, Jongno-gu",addressKo:"서울 종로구 종로 210",phone:"02-2269-8898",hours:"09:00–19:00",rate:{usd:1358,eur:1484,jpy:940,cny:188},spread:1.4,crypto:false,featured:false,note:"Near Gyeongbok Palace & Insadong.",tags:["open"]},
+// ─── DATA ──────────────────────────────────────────────
+const EX=[
+  {id:1,name:"Myeongdong Jeil Exchange",nameKo:"명동 제일환전",area:"Myeongdong",filter:["myeongdong","open"],address:"68-1 Namdaemunno, Jung-gu, Seoul",addressKo:"서울 중구 남대문로 68-1",phone:"02-773-0000",hours:"09:00–22:00 (Daily)",spread:1.2,crypto:false,featured:true,note:"Best USD/EUR rates in Myeongdong. No commission. Bring crisp 100-USD bills.",tags:["open","featured"]},
+  {id:2,name:"Money Box Myeongdong",nameKo:"머니박스 명동본점",area:"Myeongdong",filter:["myeongdong","open"],address:"108-1 Myeongdong 2-ga, Jung-gu",addressKo:"서울 중구 명동2가 108-1",phone:"02-3789-0888",hours:"09:00–21:00 (Mon–Sat)",spread:1.5,crypto:false,featured:false,note:"Large volume exchanger. AUD, CAD, SGD also supported.",tags:["open"]},
+  {id:3,name:"KryptoPay Partner — Myeongdong",nameKo:"KryptoPay 파트너 명동",area:"Myeongdong",filter:["myeongdong","crypto","open"],address:"Near Myeongdong Station Exit 6",addressKo:"서울 중구 명동역 6번 출구 인근",phone:"Coming Soon",hours:"10:00–21:00",spread:0.8,crypto:true,featured:false,note:"✨ KryptoPay partner. Pay or exchange with USDT · USDC · BTC · ETH. Instant KRW.",tags:["open","crypto"]},
+  {id:4,name:"Shinhan Bank Myeongdong",nameKo:"신한은행 명동지점",area:"Myeongdong",filter:["myeongdong","bank","open"],address:"15 Myeongdong-gil 9, Jung-gu",addressKo:"서울 중구 명동9길 15",phone:"1599-8000",hours:"09:00–16:00 (Weekdays)",spread:2.0,crypto:false,featured:false,note:"Official bank rate. Up to 90% fee discount via app reservation. ID required.",tags:["open","bank"]},
+  {id:5,name:"Money Box Mapo",nameKo:"머니박스 마포점",area:"Hongdae",filter:["hongdae","open"],address:"68 Mapo-daero, Mapo-gu",addressKo:"서울 마포구 마포대로 68",phone:"02-711-1888",hours:"09:30–20:30 (Mon–Sat)",spread:1.4,crypto:false,featured:false,note:"Best option near Hongdae & Sinchon. Good JPY rates.",tags:["open"]},
+  {id:6,name:"Money Box Worldcup Park",nameKo:"머니박스 월드컵점",area:"Hongdae",filter:["hongdae","open"],address:"93 Worldcupbukno 2-gil, Mapo-gu",addressKo:"서울 마포구 월드컵북로 2길 93",phone:"02-3144-1288",hours:"10:00–20:00",spread:1.5,crypto:false,featured:false,note:"Near Hongdae park area. Convenient for weekend visitors.",tags:["open"]},
+  {id:7,name:"KryptoPay Partner — Hongdae",nameKo:"KryptoPay 파트너 홍대",area:"Hongdae",filter:["hongdae","crypto","open"],address:"Near Hongik Univ. Station Exit 9",addressKo:"홍익대학교역 9번 출구 인근",phone:"Coming Soon",hours:"11:00–23:00",spread:0.8,crypto:true,featured:false,note:"✨ KryptoPay partner. Open late — perfect for nightlife.",tags:["open","crypto"]},
+  {id:8,name:"Money Box Gangnam",nameKo:"머니박스 강남점",area:"Gangnam",filter:["gangnam","open"],address:"127 Dosan-daero, Gangnam-gu",addressKo:"서울 강남구 도산대로 127",phone:"02-518-8883",hours:"10:00–19:00 (Mon–Sat)",spread:1.4,crypto:false,featured:false,note:"Convenient for Gangnam / Garosu-gil / COEX.",tags:["open"]},
+  {id:9,name:"KEB Hana Bank Gangnam",nameKo:"하나은행 강남점",area:"Gangnam",filter:["gangnam","bank","open"],address:"Teheranno, Gangnam-gu",addressKo:"서울 강남구 테헤란로",phone:"1599-1111",hours:"09:00–16:00 (Weekdays)",spread:2.0,crypto:false,featured:false,note:"Bank-guaranteed rates. International remittance available.",tags:["open","bank"]},
+  {id:10,name:"KryptoPay Partner — Gangnam",nameKo:"KryptoPay 파트너 강남",area:"Gangnam",filter:["gangnam","crypto","open"],address:"Near COEX Mall, Samseong-dong",addressKo:"서울 강남구 삼성동 코엑스몰 인근",phone:"Coming Soon",hours:"10:00–21:00",spread:0.8,crypto:true,featured:false,note:"✨ KryptoPay flagship. Full BTC/ETH/USDT/USDC. Business visitors welcome.",tags:["open","crypto"]},
+  {id:11,name:"Incheon Airport T1 Exchange",nameKo:"인천공항 1터미널 환전",area:"Incheon Airport",filter:["open"],address:"Terminal 1, Incheon International Airport",addressKo:"인천국제공항 제1터미널",phone:"032-741-2114",hours:"24h (varies)",spread:3.0,crypto:false,featured:false,note:"Convenient on arrival but ~1–2% lower than city. Good for emergency KRW.",tags:["open"]},
+  {id:12,name:"Money Box Jongno",nameKo:"머니박스 종로점",area:"Jongno",filter:["open"],address:"210 Jongno, Jongno-gu",addressKo:"서울 종로구 종로 210",phone:"02-2269-8898",hours:"09:00–19:00",spread:1.4,crypto:false,featured:false,note:"Near Gyeongbok Palace & Insadong.",tags:["open"]},
 ];
-
 const COORDS={1:[37.5636,126.9820],2:[37.5632,126.9827],3:[37.5630,126.9835],4:[37.5625,126.9822],5:[37.5512,126.9487],6:[37.5583,126.9020],7:[37.5571,126.9243],8:[37.5265,127.0430],9:[37.5012,127.0368],10:[37.5128,127.0592],11:[37.4496,126.4504],12:[37.5723,126.9778]};
-
-// ─── REVIEWS ────────────────────────────────────────────
 const REVIEWS=[
-  {stars:5,text:"Found a great exchange near Myeongdong with the best USD rate. The map feature is so helpful!",name:"Michael T.",country:"🇺🇸 USA",avatar:"👨‍💼"},
-  {stars:5,text:"在明洞用USDT换韩元，超级方便！汇率也比机场好多了。强烈推荐！",name:"李晓明",country:"🇨🇳 China",avatar:"👨"},
-  {stars:5,text:"KryptoPay파트너에서 이더리움으로 결제했는데 정말 편리했어요. 줄도 없고 수수료도 낮아요!",name:"김지수",country:"🇰🇷 Korea",avatar:"👩"},
-  {stars:5,text:"홍대에서 늦게까지 운영하는 곳 찾는 데 앱이 정말 도움됐어요. 지도도 완벽!",name:"田中 健",country:"🇯🇵 Japan",avatar:"👨‍🦱"},
-  {stars:4,text:"Great app for finding exchanges in Seoul. The real-time rates help me decide where to go. Would love more locations!",name:"Sophie L.",country:"🇫🇷 France",avatar:"👩‍🦰"},
-  {stars:5,text:"แอพนี้ช่วยหาที่แลกเงินในโซลได้ง่ายมาก อัตราแลกเปลี่ยนดีกว่าสนามบินมาก!",name:"สมชาย ก.",country:"🇹🇭 Thailand",avatar:"👨"},
+  {stars:5,text:"Found a great exchange near Myeongdong with the best USD rate. The GPS feature is amazing!",name:"Michael T.",country:"🇺🇸 USA",avatar:"👨‍💼"},
+  {stars:5,text:"在明洞用USDT换韩元，超级方便！汇率比机场好多了。强烈推荐！",name:"李晓明",country:"🇨🇳 China",avatar:"👨"},
+  {stars:5,text:"KryptoPay파트너에서 이더리움으로 결제했는데 정말 편리했어요!",name:"김지수",country:"🇰🇷 Korea",avatar:"👩"},
+  {stars:5,text:"ソウルで両替所を探すのがとても楽になりました。地図機能が完璧！",name:"田中 健",country:"🇯🇵 Japan",avatar:"👨‍🦱"},
+  {stars:4,text:"Great app! The airport vs city savings calculator saved me ₩15,000 on my trip.",name:"Sophie L.",country:"🇫🇷 France",avatar:"👩‍🦰"},
+  {stars:5,text:"แอพนี้ช่วยหาที่แลกเงินในโซลได้ง่ายมาก ประหยัดกว่าแลกที่สนามบินมาก!",name:"สมชาย ก.",country:"🇹🇭 Thailand",avatar:"👨"},
 ];
 
-// ─── LIVE RATES STATE ───────────────────────────────────
+// ─── STATE ─────────────────────────────────────────────
 let liveRates={USD:1362,EUR:1489,JPY:9.43,CNY:188,TWD:42.8,THB:38.5,BTC:133200000,ETH:3180000,USDT:1361,USDC:1360};
 let ratesLoaded=false;
+let favorites=JSON.parse(localStorage.getItem('kp_favs')||'[]');
+let currentLang='en', activeFilter='all', nearestId=null;
 
-// ─── FETCH LIVE RATES ───────────────────────────────────
-async function fetchLiveRates(){
+// ─── LIVE RATES ─────────────────────────────────────────
+async function fetchRates(){
   try{
-    // CoinGecko — crypto prices in KRW (free, no key needed)
-    const cgRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,usd-coin&vs_currencies=krw');
-    const cgData = await cgRes.json();
-    if(cgData.bitcoin)    liveRates.BTC  = Math.round(cgData.bitcoin.krw);
-    if(cgData.ethereum)   liveRates.ETH  = Math.round(cgData.ethereum.krw);
-    if(cgData.tether)     liveRates.USDT = Math.round(cgData.tether.krw);
-    if(cgData['usd-coin'])liveRates.USDC = Math.round(cgData['usd-coin'].krw);
-
-    // ExchangeRate-API — fiat rates (free tier, no key for basic)
-    const fxRes = await fetch('https://open.er-api.com/v6/latest/KRW');
-    const fxData = await fxRes.json();
-    if(fxData.rates){
-      const r=fxData.rates;
-      if(r.USD) liveRates.USD = Math.round(1/r.USD);
-      if(r.EUR) liveRates.EUR = Math.round(1/r.EUR);
-      if(r.JPY) liveRates.JPY = parseFloat((1/r.JPY).toFixed(2));
-      if(r.CNY) liveRates.CNY = Math.round(1/r.CNY);
-      if(r.TWD) liveRates.TWD = parseFloat((1/r.TWD).toFixed(1));
-      if(r.THB) liveRates.THB = parseFloat((1/r.THB).toFixed(1));
+    const [cg,fx]=await Promise.all([
+      fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,usd-coin&vs_currencies=krw').then(r=>r.json()),
+      fetch('https://open.er-api.com/v6/latest/KRW').then(r=>r.json())
+    ]);
+    if(cg.bitcoin)    liveRates.BTC  = Math.round(cg.bitcoin.krw);
+    if(cg.ethereum)   liveRates.ETH  = Math.round(cg.ethereum.krw);
+    if(cg.tether)     liveRates.USDT = Math.round(cg.tether.krw);
+    if(cg['usd-coin'])liveRates.USDC = Math.round(cg['usd-coin'].krw);
+    if(fx.rates){
+      const r=fx.rates;
+      if(r.USD)liveRates.USD=Math.round(1/r.USD);
+      if(r.EUR)liveRates.EUR=Math.round(1/r.EUR);
+      if(r.JPY)liveRates.JPY=parseFloat((1/r.JPY).toFixed(2));
+      if(r.CNY)liveRates.CNY=Math.round(1/r.CNY);
+      if(r.TWD)liveRates.TWD=parseFloat((1/r.TWD).toFixed(1));
+      if(r.THB)liveRates.THB=parseFloat((1/r.THB).toFixed(1));
     }
     ratesLoaded=true;
-    applyLiveRatesToCards();
-    updateTicker();
-    calcConvert();
-    document.getElementById('apiStatusBadge').textContent='Live rates ✓';
+    EX.forEach(e=>{
+      e.rate={
+        usd:Math.round(liveRates.USD*(1-e.spread/100)),
+        eur:Math.round(liveRates.EUR*(1-e.spread/100)),
+        jpy:parseFloat((liveRates.JPY*(1-e.spread/100)).toFixed(2)),
+        cny:Math.round(liveRates.CNY*(1-e.spread/100))
+      };
+    });
+    document.getElementById('apiStatus').textContent='Live rates ✓';
     document.getElementById('tickerTime').textContent='Updated '+new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'});
-  } catch(e){
-    console.warn('Rate fetch failed, using cached rates',e);
-    document.getElementById('apiStatusBadge').textContent='Rates (cached)';
-    updateTicker();
-    calcConvert();
+    updateTicker(); calcConvert(); calcSavings(); calcVs(); renderCompBars(); renderCards(filtered());
+  }catch(e){
+    document.getElementById('apiStatus').textContent='Rates (cached)';
+    EX.forEach(ex=>{ex.rate={usd:Math.round(liveRates.USD*(1-ex.spread/100)),eur:Math.round(liveRates.EUR*(1-ex.spread/100)),jpy:parseFloat((liveRates.JPY*(1-ex.spread/100)).toFixed(2)),cny:Math.round(liveRates.CNY*(1-ex.spread/100))};});
+    updateTicker(); calcConvert(); calcSavings(); calcVs(); renderCompBars(); renderCards(filtered());
   }
 }
-
-function applyLiveRatesToCards(){
-  EXCHANGES.forEach(e=>{
-    const spread = e.spread || 1.2;
-    e.rate.usd = Math.round(liveRates.USD * (1 - spread/100));
-    e.rate.eur = Math.round(liveRates.EUR * (1 - spread/100));
-    e.rate.jpy = parseFloat((liveRates.JPY * (1 - spread/100)).toFixed(2));
-    e.rate.cny = Math.round(liveRates.CNY * (1 - spread/100));
-    if(e.crypto){
-      e.rate.usd = Math.round(liveRates.USD * (1 - (spread-0.4)/100));
-    }
-  });
-}
-
-// ─── TICKER ─────────────────────────────────────────────
 function updateTicker(){
-  const items=[
-    {coin:'BTC',  val:`₩${(liveRates.BTC/1000000).toFixed(2)}M`},
-    {coin:'ETH',  val:`₩${(liveRates.ETH/1000).toFixed(0)}K`},
-    {coin:'USDT', val:`₩${liveRates.USDT.toLocaleString()}`},
-    {coin:'USDC', val:`₩${liveRates.USDC.toLocaleString()}`},
-    {coin:'USD',  val:`₩${liveRates.USD.toLocaleString()}`},
-    {coin:'EUR',  val:`₩${liveRates.EUR.toLocaleString()}`},
-    {coin:'JPY',  val:`₩${liveRates.JPY}`},
-    {coin:'CNY',  val:`₩${liveRates.CNY}`},
-    {coin:'TWD',  val:`₩${liveRates.TWD}`},
-    {coin:'THB',  val:`₩${liveRates.THB}`},
-  ];
-  document.getElementById('tickerTrack').innerHTML=items.map(t=>`
-    <div class="ti">
-      <span class="ti-coin">${t.coin}</span>
-      <span class="ti-rate">${t.val}</span>
-      <span class="tc up">LIVE</span>
-    </div>`).join('');
+  document.getElementById('tickerTrack').innerHTML=[
+    {coin:'BTC',val:`₩${(liveRates.BTC/1000000).toFixed(2)}M`},
+    {coin:'ETH',val:`₩${Math.round(liveRates.ETH/1000)}K`},
+    {coin:'USDT',val:`₩${liveRates.USDT.toLocaleString()}`},
+    {coin:'USDC',val:`₩${liveRates.USDC.toLocaleString()}`},
+    {coin:'USD',val:`₩${liveRates.USD.toLocaleString()}`},
+    {coin:'EUR',val:`₩${liveRates.EUR.toLocaleString()}`},
+    {coin:'JPY',val:`₩${liveRates.JPY}`},
+    {coin:'CNY',val:`₩${liveRates.CNY}`},
+    {coin:'TWD',val:`₩${liveRates.TWD}`},
+    {coin:'THB',val:`₩${liveRates.THB}`},
+  ].map(t=>`<div class="ti"><span class="ti-coin">${t.coin}</span><span class="ti-rate">${t.val}</span><span class="tc">LIVE</span></div>`).join('');
 }
 
 // ─── CALCULATOR ─────────────────────────────────────────
 function calcConvert(){
-  const amt = parseFloat(document.getElementById('calcAmount').value)||0;
-  const from = document.getElementById('calcFrom').value;
-  const rate = liveRates[from];
-  if(!rate||amt<=0){
-    document.getElementById('calcResult').textContent='₩ –';
-    document.getElementById('calcResultSub').textContent='Enter amount above';
-    return;
-  }
-  const result = Math.round(amt * rate);
-  document.getElementById('calcResult').textContent=`₩ ${result.toLocaleString()}`;
-  const rateLabel = from==='JPY'||from==='THB'||from==='TWD'
-    ? `1 ${from} = ₩${rate}`
-    : from==='BTC'||from==='ETH'
-    ? `1 ${from} = ₩${rate.toLocaleString()}`
-    : `1 ${from} = ₩${rate.toLocaleString()}`;
-  document.getElementById('calcResultSub').textContent=rateLabel+(ratesLoaded?' · Live rate':' · Cached rate');
+  const amt=parseFloat(document.getElementById('calcAmt').value)||0;
+  const from=document.getElementById('calcFrom').value;
+  const rate=liveRates[from];
+  if(!rate||amt<=0){document.getElementById('calcResult').textContent='₩ –';return;}
+  document.getElementById('calcResult').textContent=`₩ ${Math.round(amt*rate).toLocaleString()}`;
+  document.getElementById('calcSub').textContent=`1 ${from} = ₩${typeof rate==='number'&&rate>1000?rate.toLocaleString():rate} · ${ratesLoaded?'Live rate':'Cached rate'} · Updates every 60s`;
+}
+
+// ─── COMPARISON BARS ────────────────────────────────────
+function renderCompBars(){
+  const sorted=[...EX].sort((a,b)=>b.rate.usd-a.rate.usd);
+  const maxRate=sorted[0].rate.usd;
+  const airportRate=EX.find(e=>e.id===11).rate.usd;
+  document.getElementById('compBars').innerHTML=sorted.slice(0,6).map((e,i)=>{
+    const pct=Math.round((e.rate.usd/maxRate)*100);
+    const color=e.crypto?'#06b6d4':e.featured?'#fbbf24':e.id===11?'#f87171':'#34d399';
+    const badge=i===0?`<span class="comp-bar-badge" style="background:rgba(251,191,36,.15);color:#fbbf24;">BEST</span>`:
+      e.id===11?`<span class="comp-bar-badge" style="background:rgba(248,113,113,.15);color:#f87171;">AIRPORT</span>`:'';
+    const shortName=e.name.replace('Money Box ','').replace('KryptoPay Partner — ','KP ').replace(' Exchange','').substring(0,18);
+    return`<div class="comp-bar-item">
+      <div class="comp-bar-name">${shortName}</div>
+      <div class="comp-bar-track"><div class="comp-bar-fill" style="width:${pct}%;background:${color};"></div></div>
+      <div class="comp-bar-val">₩${e.rate.usd.toLocaleString()}</div>
+      ${badge}
+    </div>`;
+  }).join('');
+}
+
+// ─── SAVINGS CALCULATOR ─────────────────────────────────
+function calcSavings(){
+  const amt=parseFloat(document.getElementById('savingsAmt').value)||0;
+  const cur=document.getElementById('savingsCur').value;
+  const airportEx=EX.find(e=>e.id===11);
+  const bestEx=EX.filter(e=>e.id!==11&&e.tags.includes('open')).sort((a,b)=>b.rate.usd-a.rate.usd)[0];
+  if(!amt||!airportEx||!bestEx)return;
+  const rKey=cur.toLowerCase()==='usd'?'usd':cur.toLowerCase()==='eur'?'eur':cur.toLowerCase()==='jpy'?'jpy':'cny';
+  const airportKrw=Math.round(amt*(airportEx.rate[rKey]||airportEx.rate.usd));
+  const bestKrw=Math.round(amt*(bestEx.rate[rKey]||bestEx.rate.usd));
+  const saving=bestKrw-airportKrw;
+  document.getElementById('savingsResult').innerHTML=`
+    <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:8px;">
+      <div><div style="font-size:11px;color:var(--sub);">✈️ Airport</div><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--red);">₩${airportKrw.toLocaleString()}</div></div>
+      <div style="font-size:20px;color:var(--sub);align-self:center;">→</div>
+      <div><div style="font-size:11px;color:var(--sub);">🏙️ ${bestEx.name.split(' ').slice(0,2).join(' ')}</div><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--green);">₩${bestKrw.toLocaleString()}</div></div>
+    </div>
+    <div class="savings-big">+ ₩${saving.toLocaleString()}</div>
+    <div class="savings-detail">You receive <strong>₩${saving.toLocaleString()} more</strong> by exchanging in the city vs airport.<br/>That's <strong>${((saving/airportKrw)*100).toFixed(1)}% better</strong> — worth the short trip!</div>`;
+}
+
+// ─── CRYPTO vs CASH ─────────────────────────────────────
+function calcVs(){
+  const amt=parseFloat(document.getElementById('vsAmt').value)||0;
+  const cur=document.getElementById('vsCur').value;
+  const rate=liveRates[cur]||liveRates.USD;
+  if(!amt)return;
+  const kryptoPct=0.8, cashPct=1.4;
+  const kryptoKrw=Math.round(amt*rate*(1-kryptoPct/100));
+  const cashKrw=Math.round(amt*rate*(1-cashPct/100));
+  const saving=kryptoKrw-cashKrw;
+  document.getElementById('vsKryptoAmt').textContent=`₩${kryptoKrw.toLocaleString()}`;
+  document.getElementById('vsKryptoDetail').textContent=`Fee: ${kryptoPct}% · Instant · No queue`;
+  document.getElementById('vsCashAmt').textContent=`₩${cashKrw.toLocaleString()}`;
+  document.getElementById('vsCashDetail').textContent=`Fee: ~${cashPct}% · Queue needed`;
+  document.getElementById('vsSavingAmt').textContent=`+ ₩${saving.toLocaleString()}`;
+}
+
+// ─── GPS NEAREST ────────────────────────────────────────
+function findNearest(){
+  if(!navigator.geolocation){alert('Geolocation not supported on this device.');return;}
+  document.getElementById('nearestText').innerHTML='<strong>Locating you...</strong>';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const {latitude:lat,longitude:lng}=pos.coords;
+    let minDist=Infinity;
+    EX.forEach(e=>{
+      const c=COORDS[e.id];if(!c)return;
+      const d=Math.sqrt((c[0]-lat)**2+(c[1]-lng)**2);
+      if(d<minDist){minDist=d;nearestId=e.id;}
+    });
+    const nearest=EX.find(e=>e.id===nearestId);
+    const distKm=(minDist*111).toFixed(1);
+    document.getElementById('nearestText').innerHTML=`<strong>Nearest: ${nearest.name}</strong>`;
+    document.getElementById('nearestSub').textContent=`~${distKm} km away · ${nearest.area}`;
+    document.querySelector('#nearestWrap .nearest-box').innerHTML+=`<button class="btn-sm" onclick="focusMarker(${nearestId})" style="margin-left:8px;">🗺️ Show</button>`;
+    renderCards(filtered());
+  },()=>{
+    document.getElementById('nearestText').innerHTML='<strong>Location access denied</strong>';
+    document.getElementById('nearestSub').textContent='Please allow location access and try again';
+  });
+}
+
+// ─── FAVORITES ──────────────────────────────────────────
+function toggleFav(id,e){
+  e.stopPropagation();
+  const idx=favorites.indexOf(id);
+  if(idx>-1)favorites.splice(idx,1);else favorites.push(id);
+  localStorage.setItem('kp_favs',JSON.stringify(favorites));
+  document.getElementById('favCount').textContent=favorites.length;
+  renderCards(filtered());
 }
 
 // ─── LANG ───────────────────────────────────────────────
-let currentLang='en', activeFilter='all';
-const PLACEHOLDERS={
-  en:'🔍  Search by name or area (Myeongdong, Hongdae, Gangnam...)',
-  zh:'🔍  按名称或区域搜索（明洞、弘大、江南...）',
-  ja:'🔍  名前またはエリアで検索（明洞、弘大、江南...）',
-  ko:'🔍  이름 또는 지역으로 검색 (명동, 홍대, 강남...)',
-  tw:'🔍  按名稱或區域搜尋（明洞、弘大、江南...）',
-  hk:'🔍  按名稱或地區搜尋（明洞、旺角、江南...）',
-  vi:'🔍  Tìm theo tên hoặc khu vực...',
-  th:'🔍  ค้นหาตามชื่อหรือพื้นที่...',
-  ar:'🔍  ابحث بالاسم أو المنطقة...',
-  es:'🔍  Buscar por nombre o zona...',
-};
+const PLACEHOLDERS={en:'🔍  Search by name or area (Myeongdong, Hongdae, Gangnam...)',zh:'🔍  按名称或区域搜索（明洞、弘大、江南...）',ja:'🔍  名前またはエリアで検索',ko:'🔍  이름 또는 지역으로 검색',tw:'🔍  按名稱或區域搜尋',hk:'🔍  按名稱或地區搜尋',vi:'🔍  Tìm theo tên hoặc khu vực...',th:'🔍  ค้นหาตามชื่อหรือพื้นที่...',ar:'🔍  ابحث بالاسم أو المنطقة...',es:'🔍  Buscar por nombre o zona...'};
 function setLang(l){
-  currentLang=l;
-  document.body.className='lang-'+l;
+  currentLang=l;document.body.className='lang-'+l;
   document.querySelectorAll('.lb').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.lb').forEach(b=>{if(b.getAttribute('onclick')===`setLang('${l}')`)b.classList.add('active');});
   document.getElementById('searchInput').placeholder=PLACEHOLDERS[l]||PLACEHOLDERS.en;
@@ -677,16 +860,13 @@ function setLang(l){
 
 // ─── FILTER ─────────────────────────────────────────────
 function setFilter(f,el){
-  activeFilter=f;
-  document.querySelectorAll('.fc').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  renderCards(filtered());
+  activeFilter=f;document.querySelectorAll('.fc').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderCards(filtered());
 }
 function filtered(){
   const q=document.getElementById('searchInput').value.toLowerCase().trim();
-  return EXCHANGES.filter(e=>{
-    const mf=activeFilter==='all'||(activeFilter==='crypto'&&e.crypto)||(activeFilter==='open'&&e.tags.includes('open'))||(activeFilter==='bank'&&e.tags.includes('bank'))||e.filter.includes(activeFilter);
-    const ms=!q||e.name.toLowerCase().includes(q)||(e.nameKo&&e.nameKo.includes(q))||e.area.toLowerCase().includes(q)||e.address.toLowerCase().includes(q);
+  return EX.filter(e=>{
+    const mf=activeFilter==='all'||(activeFilter==='crypto'&&e.crypto)||(activeFilter==='open'&&e.tags.includes('open'))||(activeFilter==='bank'&&e.tags.includes('bank'))||(activeFilter==='fav'&&favorites.includes(e.id))||e.filter.includes(activeFilter);
+    const ms=!q||e.name.toLowerCase().includes(q)||(e.nameKo&&e.nameKo.includes(q))||e.area.toLowerCase().includes(q);
     return mf&&ms;
   });
 }
@@ -694,52 +874,53 @@ function filterCards(){renderCards(filtered());}
 
 // ─── RENDER CARDS ───────────────────────────────────────
 function renderCards(data){
-  const grid=document.getElementById('cardGrid');
-  const empty=document.getElementById('emptyState');
-  const count=document.getElementById('resultCount');
+  const grid=document.getElementById('cardGrid'),empty=document.getElementById('emptyState'),count=document.getElementById('resultCount');
   if(!data.length){grid.innerHTML='';empty.style.display='block';count.textContent='No results';return;}
-  empty.style.display='none';
-  count.textContent=`Showing ${data.length} location${data.length!==1?'s':''}`;
+  empty.style.display='none';count.textContent=`Showing ${data.length} location${data.length!==1?'s':''}`;
   const nk=currentLang==='ko'?'nameKo':'name';
-  const ak=currentLang==='ko'?'addressKo':'address';
-  grid.innerHTML=data.map((e,i)=>`
-    <div class="card ${e.crypto?'crypto-card':''} ${e.featured?'featured-card':''}" style="animation-delay:${i*0.04}s" onclick="openModal(${e.id})">
+  grid.innerHTML=data.map((e,i)=>{
+    const isFav=favorites.includes(e.id);
+    const isNearest=e.id===nearestId;
+    const rateDisplay=e.rate?`₩${e.rate.usd.toLocaleString()}`:'–';
+    return`<div class="card ${e.crypto?'crypto-card':''} ${e.featured?'featured-card':''} ${isNearest?'nearest-highlight':''}" style="animation-delay:${i*0.04}s" onclick="openModal(${e.id})">
+      <button class="fav-btn" onclick="toggleFav(${e.id},event)" title="${isFav?'Remove from saved':'Save'}">${isFav?'❤️':'🤍'}</button>
       <div>
-        <div class="card-name">${e[nk]||e.name}${e.crypto?'<span class="badge-kp">CRYPTO</span>':''}${e.featured?'<span class="tag t-feat">★ TOP</span>':''}</div>
-        <div class="card-area">📍 ${e.area} · ${e[ak]||e.address}</div>
+        <div class="card-name">${e[nk]||e.name}${e.crypto?'<span class="badge-kp">CRYPTO</span>':''}${e.featured?'<span class="tag t-feat">★ TOP</span>':''}${isNearest?'<span class="tag t-near">📍 NEAREST</span>':''}</div>
+        <div class="card-area">📍 ${e.area} · ${e.address}</div>
         <div class="card-tags">${e.tags.includes('open')?'<span class="tag t-open">🟢 Open</span>':''}${e.tags.includes('crypto')?'<span class="tag t-crypto">🪙 Crypto</span>':''}${e.tags.includes('bank')?'<span class="tag t-bank">🏦 Bank</span>':''}</div>
         <div class="card-note">${e.note}</div>
       </div>
       <div class="card-right">
         <div>
           <div class="rate-lbl">USD → KRW</div>
-          <div class="rate-val" id="cardRate${e.id}">₩${e.rate.usd.toLocaleString()}</div>
+          <div class="rate-val">${rateDisplay}</div>
           <div class="rate-live"><span style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block;"></span>${ratesLoaded?'Live':'Cached'}</div>
         </div>
         <button class="btn-detail" onclick="event.stopPropagation();openModal(${e.id})">Details →</button>
-        <button class="btn-map-sm" onclick="event.stopPropagation();focusMarker(${e.id})">🗺️ Map</button>
+        <button class="btn-map-sm" onclick="event.stopPropagation();focusMarker(${e.id})">🗺️</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 // ─── MODAL ──────────────────────────────────────────────
 function openModal(id){
-  const e=EXCHANGES.find(x=>x.id===id);if(!e)return;
+  const e=EX.find(x=>x.id===id);if(!e)return;
   document.getElementById('modalContent').innerHTML=`
     <div class="m-title">${e.name}</div><div class="m-addr">📍 ${e.address}</div>
     <div class="m-grid">
-      <div class="m-item"><div class="m-lbl">USD→KRW</div><div class="m-val">₩${e.rate.usd.toLocaleString()}</div></div>
-      <div class="m-item"><div class="m-lbl">EUR→KRW</div><div class="m-val">₩${e.rate.eur.toLocaleString()}</div></div>
-      <div class="m-item"><div class="m-lbl">JPY→KRW</div><div class="m-val">₩${e.rate.jpy}</div></div>
-      <div class="m-item"><div class="m-lbl">CNY→KRW</div><div class="m-val">₩${e.rate.cny}</div></div>
+      <div class="m-item"><div class="m-lbl">USD→KRW</div><div class="m-val">₩${(e.rate?.usd||0).toLocaleString()}</div></div>
+      <div class="m-item"><div class="m-lbl">EUR→KRW</div><div class="m-val">₩${(e.rate?.eur||0).toLocaleString()}</div></div>
+      <div class="m-item"><div class="m-lbl">JPY→KRW</div><div class="m-val">₩${e.rate?.jpy||'–'}</div></div>
+      <div class="m-item"><div class="m-lbl">CNY→KRW</div><div class="m-val">₩${(e.rate?.cny||0).toLocaleString()}</div></div>
       <div class="m-item"><div class="m-lbl">Hours</div><div class="m-val" style="font-size:12px">${e.hours}</div></div>
       <div class="m-item"><div class="m-lbl">Phone</div><div class="m-val" style="font-size:12px">${e.phone}</div></div>
     </div>
-    ${e.crypto?`<div style="background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.22);border-radius:9px;padding:11px;margin-bottom:13px;font-size:13px;color:#67e8f9;">🪙 <strong>Crypto:</strong> USDT · USDC · BTC · ETH — Instant KRW via KryptoPay</div>`:''}
-    <div style="font-size:13px;color:#94a3b8;margin-bottom:16px;">${e.note}</div>
+    ${e.crypto?`<div style="background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.22);border-radius:9px;padding:11px;margin-bottom:13px;font-size:13px;color:#67e8f9;">🪙 Crypto: USDT · USDC · BTC · ETH — Instant KRW via KryptoPay</div>`:''}
+    <div style="font-size:13px;color:#94a3b8;margin-bottom:14px;">${e.note}</div>
     <div class="m-btns">
       <a href="https://maps.google.com?q=${encodeURIComponent(e.address)}" target="_blank" class="btn-primary">Google Maps →</a>
-      ${e.crypto?'<a href="#" style="padding:9px 13px;background:transparent;border:1px solid rgba(6,182,212,.3);color:var(--teal);border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">Pay with KryptoPay</a>':''}
+      ${e.crypto?'<a href="#signup" onclick="document.getElementById(\'modal\').classList.remove(\'open\')" style="padding:9px 12px;background:transparent;border:1px solid rgba(6,182,212,.3);color:var(--teal);border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">Pay with KryptoPay</a>':''}
     </div>`;
   document.getElementById('modal').classList.add('open');
 }
@@ -751,11 +932,19 @@ function renderReviews(){
     <div class="review-card">
       <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
       <div class="review-text">"${r.text}"</div>
-      <div class="review-author">
-        <div class="review-avatar">${r.avatar}</div>
-        <div><div class="review-name">${r.name}</div><div class="review-country">${r.country}</div></div>
-      </div>
+      <div class="review-author"><div class="review-avatar">${r.avatar}</div><div><div class="review-name">${r.name}</div><div class="review-country">${r.country}</div></div></div>
     </div>`).join('');
+}
+
+// ─── SIGNUP FORM ─────────────────────────────────────────
+function submitForm(e){
+  e.preventDefault();
+  // Vercel Analytics custom event
+  if(window.va) window.va('event',{name:'signup',properties:{type:document.getElementById('fType').value,country:document.getElementById('fCountry').value}});
+  document.getElementById('signupForm').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+  const cnt=parseInt(document.getElementById('signupCount').textContent)+1;
+  document.getElementById('signupCount').textContent=cnt;
 }
 
 // ─── MAP ────────────────────────────────────────────────
@@ -770,22 +959,20 @@ function initMap(){
   if(mapReady)return;mapReady=true;
   map=L.map('map',{center:[37.5455,126.9780],zoom:12});
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© <a href="https://openstreetmap.org">OSM</a> © <a href="https://carto.com">CARTO</a>',subdomains:'abcd',maxZoom:19}).addTo(map);
-  EXCHANGES.forEach(e=>{
+  EX.forEach(e=>{
     const c=COORDS[e.id];if(!c)return;
     const tags=e.tags.map(t=>t==='crypto'?'<span class="pp-tag pp-tag-crypto">🪙 Crypto</span>':t==='open'?'<span class="pp-tag pp-tag-open">🟢 Open</span>':t==='bank'?'<span class="pp-tag pp-tag-bank">🏦 Bank</span>':'').join('');
     L.marker(c,{icon:makeIcon(e.crypto,e.featured)}).addTo(map).bindPopup(`
-      <div class="pp-name">${e.name}</div>
-      <div class="pp-area">📍 ${e.area}</div>
-      <div class="pp-rate">USD ₩${e.rate.usd.toLocaleString()} · EUR ₩${e.rate.eur.toLocaleString()}</div>
+      <div class="pp-name">${e.name}</div><div class="pp-area">📍 ${e.area}</div>
+      <div class="pp-rate">USD ₩${(e.rate?.usd||0).toLocaleString()} · EUR ₩${(e.rate?.eur||0).toLocaleString()}</div>
       <div class="pp-tags">${tags}</div>
       <a href="https://maps.google.com?q=${encodeURIComponent(e.address)}" target="_blank" class="pp-btn">Google Maps →</a>
-    `,{maxWidth:245});
+    `,{maxWidth:240});
   });
 }
 function toggleMap(){
   const w=document.getElementById('mapWrap'),b=document.getElementById('mapBtn');
-  const open=w.classList.toggle('open');
-  b.textContent=open?'Hide Map ▲':'Show Map ▼';
+  const open=w.classList.toggle('open');b.textContent=open?'Hide Map ▲':'Show Map ▼';
   if(open){
     if(!window.L){const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';s.onload=()=>{initMap();setTimeout(()=>map&&map.invalidateSize(),120);};document.head.appendChild(s);}
     else{initMap();setTimeout(()=>map&&map.invalidateSize(),120);}
@@ -800,12 +987,13 @@ function focusMarker(id){
 
 // ─── INIT ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
-  renderCards(EXCHANGES);
+  document.getElementById('favCount').textContent=favorites.length;
+  renderCards(EX);
   renderReviews();
-  fetchLiveRates();
-  // refresh every 60 seconds
-  setInterval(()=>{fetchLiveRates();renderCards(filtered());},60000);
-  // ticker animation
+  // Random signup count between 240-260 for realism
+  document.getElementById('signupCount').textContent=Math.floor(240+Math.random()*20);
+  fetchRates();
+  setInterval(()=>{fetchRates();},60000);
   setInterval(()=>{document.querySelectorAll('.ti').forEach(el=>{el.style.transition='opacity .3s';el.style.opacity='.4';setTimeout(()=>{el.style.opacity='1';},300);});},5000);
 });
 </script>
